@@ -1,0 +1,204 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Comments
+  description: Flask + Python + MongoDB
+  license:
+    name: Cucinapp 2018
+host: 192.168.99.101:8085
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /comments:
+    post:
+      summary: Creates a new comment
+      operationId: createComment
+      parameters:
+        - name: comment
+          in: body
+          required: true
+          description: Comment Object
+          schema:
+            $ref: '#/definitions/CommentInput'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Comment'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all comments
+      operationId: getAllComments
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/CommentList'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /comments/{_id}:
+    get:
+      summary: Returns a comment with the given _id
+      operationId: getCommentById
+      parameters:
+        - name: _id
+          in: path
+          description: The _id of the comment to be returned
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Comment'
+        '404':
+            description: Not Found
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates a comment with the given _id
+      operationId: updateComment
+      parameters:
+        - name: _id
+          in: path
+          description: The _id of the comment to be updated
+          required: true
+          type: integer
+        - name: comment
+          in: body
+          required: true
+          description: Comment Object
+          schema:
+            $ref: '#/definitions/CommentInput2'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Comment'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '400':
+            description: Bad Request
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes a comment with the given _id
+      operationId: deleteComment
+      parameters:
+        - name: _id
+          in: path
+          description: The _id of the comment to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Comment'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+
+  # Comments
+  Comment:
+    type: object
+    required:
+      - _id
+      - user_id
+      - recipe_id
+      - comment
+    properties:
+      _id:
+        type: string
+      user_id:
+        type: integer
+      recipe_id:
+        type: string
+      comment:
+        type: string
+
+  CommentInput:
+    type: object
+    required:
+      - user_id
+      - recipe_id
+      - comment
+    properties:
+      user_id:
+        type: integer
+      recipe_id:
+        type: string
+      comment:
+        type: string
+
+  CommentInput2:
+    type: object
+    required:
+      - comment
+    properties:
+      comment:
+        type: string
+
+  CommentList:
+    type: object
+    required:
+      - comments
+    properties:
+      comments:
+        type: array
+        items:
+          $ref: '#/definitions/Comment'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - status
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+      info:
+        type: string
