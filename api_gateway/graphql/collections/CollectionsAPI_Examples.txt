@@ -1,0 +1,68 @@
+// Get all collections
+query{
+  getCollections{
+    id
+    name
+  }
+}
+
+// Get collection with ID
+query{
+  getCollection(id: 1){
+    id
+    name
+  }
+}
+
+// Create a collection
+mutation{
+  createCollection(input: {
+    name: "Favoritos"
+  })
+}
+
+// Update collection with ID
+mutation{
+  updateCollection(id: 1, input: {
+    name: "Comida Navideña"
+  })
+}
+
+// Delete collection with ID
+mutation{
+  deleteCollection(id: 1)
+}
+
+// Get all recipes
+query{
+  getRecipes{
+    id
+		collectionID
+		recipeID
+    name
+  }
+}
+
+// Get recipe with ID
+query{
+  getRecipe(id: 1){
+    id
+		collectionID
+		recipeID
+    name
+  }
+}
+
+// Create a recipe
+mutation{
+  createRecipe(input: {
+		collectionID: 1
+		recipeID: 1
+		name: "Receta Colombiana"
+  })
+}
+
+// Delete recipe with ID
+mutation{
+  deleteRecipe(id: 1)
+}

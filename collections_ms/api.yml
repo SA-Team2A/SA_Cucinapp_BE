@@ -1,0 +1,366 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Collections
+  description: C# + MongoDB
+  license:
+    name: Software Architecture 2018-II
+host: 192.168.99.100:8082
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /collection:
+    get:
+      summary: Returns all collections
+      operationId: getAllCollections
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/CollectionList'
+        '400':
+          description: Bad Request (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Collection
+    post:
+      summary: Creates a new collection
+      operationId: createCollection
+      parameters:
+        - name: collection
+          in: body
+          required: true
+          description: Collection Object
+          schema:
+            $ref: '#/definitions/CollectionInput'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Collection'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Collection
+        
+  /collection/{id}:
+    get:
+      summary: Returns a collection with the given ID
+      operationId: getCollectionByID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the collection to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Collection'
+        '400':
+          description: Bad Request (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Collection
+
+    put:
+      summary: Updates a collection with the given ID
+      operationId: updateCollection
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the collection to be updated
+          required: true
+          type: integer
+        - name: collection
+          in: body
+          required: true
+          description: Collection Object
+          schema:
+            $ref: '#/definitions/CollectionInput'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Collection'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Collection
+
+    delete:
+      summary: Deletes a collection with the given ID
+      operationId: deleteCollection
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the collection to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Collection'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Collection
+        
+  /recipe:
+    get:
+      summary: Returns all recipes
+      operationId: getAllRecipes
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/RecipeList'
+        '400':
+          description: Bad Request (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Recipe
+    post:
+      summary: Creates a new recipe
+      operationId: createRecipe
+      parameters:
+        - name: recipe
+          in: body
+          required: true
+          description: Recipe Object
+          schema:
+            $ref: '#/definitions/RecipeInput'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Recipe'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Recipe
+        
+  /recipe/{id}:
+    get:
+      summary: Returns a recipe with the given ID
+      operationId: getRecipeByID
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the recipe to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Recipe'
+        '400':
+          description: Bad Request (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Recipe
+
+    put:
+      summary: Updates a recipe with the given ID
+      operationId: recipeCollection
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the recipe to be updated
+          required: true
+          type: integer
+        - name: collection
+          in: body
+          required: true
+          description: Recipe Object
+          schema:
+            $ref: '#/definitions/RecipeInput'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Recipe'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Recipe
+
+    delete:
+      summary: Deletes a recipe with the given ID
+      operationId: deleteRecipe
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the recipe to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Recipe'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+      tags: 
+        - Recipe
+
+definitions:
+
+  # Collections
+  Collection:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+
+  CollectionInput:
+    type: object
+    properties:
+      name:
+        type: string
+  
+  CollectionList:
+    type: array
+    items:
+          $ref: '#/definitions/Collection'
+        
+  # Recipes
+  Recipe:
+    type: object
+    properties:
+      id:
+        type: integer
+      collectionID:
+        type: integer
+      recipeID:
+        type: integer
+      name:
+        type: string
+
+  RecipeInput:
+    type: object
+    properties:
+      collectionID:
+        type: integer
+      recipeID:
+        type: integer
+      name:
+        type: string
+  
+  RecipeList:
+    type: array
+    items:
+        $ref: '#/definitions/Recipe'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - status
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      info:
+        type: string

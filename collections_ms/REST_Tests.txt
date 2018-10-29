@@ -1,0 +1,17 @@
+Recipe
+	GET: http://192.168.99.100:8082/recipe
+	
+	POST: http://192.168.99.100:8082
+	{
+		"CollectionID": 1,
+		"RecipeID": 2245,
+		"Name": "Comida"
+	}
+
+Collection
+	GET: http://192.168.99.100:8082/collection
+	
+	POST: http://192.168.99.100:8082/collection
+	{
+		"Name": "Favoritos"
+	}

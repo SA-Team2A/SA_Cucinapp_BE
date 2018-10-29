@@ -1,0 +1,41 @@
+type Collection {
+	id: ID!
+	name: String!
+}
+
+type Recipe {
+	id: ID!
+	collectionID: Int!
+	recipeID: Int!
+  name: String!
+}
+
+input CollectionInput {
+	name: String!
+}
+
+input RecipeInput {
+	collectionID: Int!
+	recipeID: Int!
+	name: String!
+}
+
+type Query {
+	getCollections: [Collection!]
+  getCollection(id: ID!): Collection!
+
+  getRecipes: [Recipe!]
+  getRecipe(id: ID!): Recipe!
+}
+
+# Mutations
+type Mutation {
+	createCollection(input: CollectionInput!): String!
+  createRecipe(input: RecipeInput!): String!
+  
+	updateCollection(id: ID!, input: CollectionInput!): String!
+  updateRecipe(id: ID!, input: RecipeInput!): String!
+	
+	deleteCollection(id: ID!): String!
+  deleteRecipe(id: ID!): String!
+}
