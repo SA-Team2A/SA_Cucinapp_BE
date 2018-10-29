@@ -1,0 +1,21 @@
+input New_user {
+  name: String
+  username: String!
+  email: String!
+  password: String!
+  password_confirmation: String!
+}
+
+input Authenticate {
+  email: String!
+  password: String!
+}
+
+type Query {
+  login(input: Authenticate!): String
+  verify(jwt: String!): String
+}
+
+type Mutation {
+  createUser(input: New_user!): String!
+}
