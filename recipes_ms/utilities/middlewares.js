@@ -14,5 +14,8 @@ module.exports = {
     } else {
       next()
     }
+  },
+  error_notifier: (err, req, res, next) => {
+    res.status(err.status).json(err)
   }
 }

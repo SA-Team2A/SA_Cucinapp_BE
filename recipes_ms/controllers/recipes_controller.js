@@ -1,6 +1,11 @@
 // Imports
 const Recipe = require('../models/recipe')
 const recipes_controller = require('express').Router()
+const { error_notifier } = require('../utilities/middlewares')
+const {
+  recipe_serializer,
+  recipes_list_serializer
+} = require('../utilities/recipe_serializers')
 const {
   ok,
   created,
@@ -29,9 +34,14 @@ recipes_controller.route('/')
 .get((req, res, next) => {
   Recipe.find({}, (err, recipes) => {
     if (err) {
-      return res.status(internal_error.status).json(internal_error)
+      return next(internal_error)
     }
-    res.status(ok.status).json(recipes)
+    recipes_list_serializer(recipes, (err, recipes_2) => {
+      if (err) {
+        return next(internal_error)
+      }
+      res.status(ok.status).json(recipes_2)
+    })
   })
 })
 .post((req, res, next) => {
@@ -39,9 +49,14 @@ recipes_controller.route('/')
   const recipe = new Recipe(recipe_fields)
   recipe.save((err, recipe) => {
     if (err) {
-      return res.status(unprocessable_entity.status).json(unprocessable_entity)
+      return next(unprocessable_entity)
     }
-    res.status(created.status).json(recipe)
+    recipe_serializer(recipe, (err, recipe_2) => {
+      if (err) {
+        return next(internal_error)
+      }
+      res.status(created.status).json(recipe_2)
+    })
   })
 })
 
@@ -102,9 +117,14 @@ get((req, res, next) => {
 
   Recipe.find(filter, (err, recipes) => {
     if (err) {
-      return res.status(internal_error.status).json(internal_error)
+      return next(internal_error)
     }
-    res.status(ok.status).json(recipes)
+    recipes_list_serializer(recipes, (err, recipes_2) => {
+      if (err) {
+        return next(internal_error)
+      }
+      res.status(ok.status).json(recipes_2)
+    })
   })
 })
 
@@ -113,26 +133,31 @@ recipes_controller.route('/:recipe_id')
   Recipe.findById(req.params.recipe_id, (err, recipe) => {
     if (err) {
       if (err.name === 'CastError') {
-        return res.status(not_found.status).json(not_found)
+        return next(not_found)
       }
-      return res.status(internal_error.status).json(internal_error)
+      return next(internal_error)
     }
     if (!recipe) {
-      return res.status(not_found.status).json(not_found)
+      return next(not_found)
     }
-    res.status(ok.status).json(recipe)
+    recipe_serializer(recipe, (err, recipe_2) => {
+      if (err) {
+        return next(internal_error)
+      }
+      res.status(ok.status).json(recipe_2)
+    })
   })
 })
 .put((req, res, next) => {
   Recipe.findById(req.params.recipe_id, (err, recipe) => {
     if (err) {
       if (err.name === 'CastError') {
-        return res.status(not_found.status).json(not_found)
+        return next(not_found)
       }
-      return res.status(internal_error.status).json(internal_error)
+      return next(internal_error)
     }
     if (!recipe) {
-      return res.status(not_found.status).json(not_found)
+      return next(not_found)
     }
     const recipe_fields = recipe_fields_extractor(req.body)
     var unproc = true
@@ -143,13 +168,18 @@ recipes_controller.route('/:recipe_id')
       }
     }
     if (unproc) {
-      res.status(unprocessable_entity.status).json(unprocessable_entity)
+      return next(unprocessable_entity)
     }
     recipe.save((err, recipe_updated) => {
       if (err) {
-        return res.status(unprocessable_entity.status).json(unprocessable_entity)
+        return next(unprocessable_entity)
       }
-      res.status(ok.status).json(recipe_updated)
+      recipe_serializer(recipe_updated, (err, recipe_2) => {
+        if (err) {
+          return next(internal_error)
+        }
+        res.status(ok.status).json(recipe_2)
+      })
     })
   })
 })
@@ -157,21 +187,26 @@ recipes_controller.route('/:recipe_id')
   Recipe.findById(req.params.recipe_id, (err, recipe) => {
     if (err) {
       if (err.name === 'CastError') {
-        return res.status(not_found.status).json(not_found)
+        return next(not_found)
       }
-      return res.status(internal_error.status).json(internal_error)
+      return next(internal_error)
     }
     if (!recipe) {
-      return res.status(not_found.status).json(not_found)
+      return next(not_found)
     }
     recipe.remove((err, recipe_removed) => {
       if (err) {
-        return res.status(internal_error.status).json(internal_error)
+        return next(internal_error)
       }
-      res.status(ok.status).json(recipe)
+      recipe_serializer(recipe_removed, (err, recipe_2) => {
+        if (err) {
+          return next(internal_error)
+        }
+        res.status(ok.status).json(recipe_2)
+      })
     })
   })
 })
 
-
+recipes_controller.use(error_notifier)
 module.exports = recipes_controller
