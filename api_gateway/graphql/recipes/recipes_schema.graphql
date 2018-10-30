@@ -1,0 +1,62 @@
+input New_recipe {
+  name: String!
+  description: String!
+  difficulty_id: Int!
+  portions: Int
+  preparation_time: Int
+  cooking_time: Int
+  photos: [String]!
+  ingredients: [String!]!
+  steps: [String!]!
+}
+
+input Update_recipe {
+  name: String
+  description: String
+  difficulty_id: Int
+  portions: Int
+  preparation_time: Int
+  cooking_time: Int
+  photos: [String]
+  ingredients: [String!]
+  steps: [String!]
+}
+
+input Search_recipe {
+  name: String
+  difficulty_id: [String]
+  portions: String
+  preparation_time: String
+  cooking_time: String
+  ingredients: [String]
+}
+
+type Difficulty {
+  _id: Int!
+  description: String!
+}
+
+type Recipe {
+  _id: String!
+  name: String!
+  description: String!
+  difficulty: Difficulty!
+  portions: Int
+  preparation_time: Int
+  cooking_time: Int
+  photos: [String]!
+  ingredients: [String!]!
+  steps: [String!]!
+}
+
+type Query {
+  getRecipes: [Recipes]!
+  getRecipeById(_id: String!): Recipe!
+  searchRecipes(search: Search_recipe!): [Recipes]!
+}
+
+type Mutation {
+  createRecipe(recipe: New_recipe!): Recipe!
+  updateRecipe(_id: String!, recipe: Update_recipe!): Recipe!
+  deleteRecipe(_id: String!): Recipe!
+}
