@@ -1,6 +1,7 @@
 // Imports
 const Difficulty = require('../models/difficulty')
 const difficulties_controller = require('express').Router()
+const { ok, internal_error } = require('../utilities/status')
 const { error_notifier } = require('../utilities/middlewares')
 
 difficulties_controller.route('/')

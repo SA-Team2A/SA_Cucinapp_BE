@@ -8,12 +8,16 @@ const resolvers = {
     let res = await GET(recipes_url, '/recipes')
     return res
   },
+  getDifficulties: async () => {
+    let res = await GET(recipes_url, '/difficulties')
+    return res
+  },
   getRecipeById: async ({ _id }) => {
     let res = await GET(recipes_url, `/recipes/${_id}`)
     return res
   },
   searchRecipes: async ({ search }) => {
-    let res = await GET(recipes_url, '/recipes', search)
+    let res = await GET(recipes_url, '/recipes/search', search)
     return res
   },
   createRecipe: async ({ recipe }) => {

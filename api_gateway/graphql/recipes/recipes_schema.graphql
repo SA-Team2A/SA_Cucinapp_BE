@@ -5,7 +5,7 @@ input New_recipe {
   portions: Int
   preparation_time: Int
   cooking_time: Int
-  photos: [String]!
+  photos: [String!]
   ingredients: [String!]!
   steps: [String!]!
 }
@@ -50,9 +50,10 @@ type Recipe {
 }
 
 type Query {
-  getRecipes: [Recipes]!
+  getRecipes: [Recipe]!
+  getDifficulties: [Difficulty!]!
   getRecipeById(_id: String!): Recipe!
-  searchRecipes(search: Search_recipe!): [Recipes]!
+  searchRecipes(search: Search_recipe!): [Recipe]!
 }
 
 type Mutation {
