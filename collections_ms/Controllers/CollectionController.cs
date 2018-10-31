@@ -41,7 +41,7 @@ namespace CollectionMS.Controllers
 			}
 			await db.AddAsync(collection);
 			await db.SaveChangesAsync();
-			return Ok(collection.ID);
+			return Ok(collection);
 		}
 
 		// Modify a collection.
@@ -60,10 +60,12 @@ namespace CollectionMS.Controllers
 			}
 			else
 			{
+				collectionOld.UserID = collection.UserID;
 				collectionOld.Name = collection.Name;
 				db.Update(collectionOld);
 				db.SaveChanges();
-				return Ok(collectionOld.ID);
+				collection.ID = collectionOld.ID;
+				return Ok(collection);
 			}
 		}
 
@@ -80,7 +82,7 @@ namespace CollectionMS.Controllers
 			{
 				db.Remove(collection);
 				db.SaveChanges();
-				return Ok();
+				return Ok(collection);
 			}
 		}
 	}

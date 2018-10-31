@@ -48,7 +48,7 @@ namespace CollectionMS.Controllers
 
 			await db.Recipes.AddAsync(recipe);
 			await db.SaveChangesAsync();
-			return Ok(recipe.ID);
+			return Ok(recipe);
 		}
 
 		// Modify a recipe.
@@ -59,7 +59,14 @@ namespace CollectionMS.Controllers
 			{
 				return BadRequest(ModelState);
 			}
-
+			
+			var collection = await db.Collections.FindAsync(recipe.CollectionID);
+			if (collection == null)
+			{
+				ModelState.AddModelError("Collection ID", $"Collection {recipe.CollectionID} does not exist");
+				return BadRequest(ModelState);
+			}
+			
 			var recipeOld = await db.Recipes.FindAsync(id);
 			if (recipeOld == default(CollectionRecipe))
 			{
@@ -72,7 +79,8 @@ namespace CollectionMS.Controllers
 				recipeOld.RecipeID = recipe.RecipeID;
 				db.Update(recipeOld);
 				db.SaveChanges();
-				return Ok(recipeOld.ID);
+				recipe.ID = recipeOld.ID;
+				return Ok(recipe);
 			}
 		}
 
@@ -89,7 +97,7 @@ namespace CollectionMS.Controllers
 			{
 				db.Remove(recipe);
 				db.SaveChanges();
-				return Ok();
+				return Ok(recipe);
 			}
 		}		
 	}

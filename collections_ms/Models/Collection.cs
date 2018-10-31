@@ -7,6 +7,9 @@ namespace CollectionMS.Models
 	{
 		[Key]
 		public int ID { get; set; }
+		
+		[Range(1, int.MaxValue)]
+		public int UserID { get; set; }
 
 		[Required(ErrorMessage = "Please enter a Name for the Collection.")]
 		[StringLength(50)]

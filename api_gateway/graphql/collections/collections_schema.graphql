@@ -1,5 +1,6 @@
 type Collection {
 	id: ID!
+	userID: Int!
 	name: String!
 }
 
@@ -11,6 +12,7 @@ type Recipe {
 }
 
 input CollectionInput {
+	userID: Int!
 	name: String!
 }
 
@@ -30,12 +32,12 @@ type Query {
 
 # Mutations
 type Mutation {
-	createCollection(input: CollectionInput!): String!
-  createRecipe(input: RecipeInput!): String!
+	createCollection(input: CollectionInput!): Collection!
+  createRecipe(input: RecipeInput!): Recipe!
   
-	updateCollection(id: ID!, input: CollectionInput!): String!
-  updateRecipe(id: ID!, input: RecipeInput!): String!
+	updateCollection(id: ID!, input: CollectionInput!): Collection!
+  updateRecipe(id: ID!, input: RecipeInput!): Recipe!
 	
-	deleteCollection(id: ID!): String!
-  deleteRecipe(id: ID!): String!
+	deleteCollection(id: ID!): Collection!
+  deleteRecipe(id: ID!): Recipe!
 }
