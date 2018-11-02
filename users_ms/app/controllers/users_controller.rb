@@ -39,6 +39,18 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+
+  def myverify
+    begin
+      puts "----------"
+      decoded_token = JWT.decode params[:token], Rails.application.credentials.fetch(:secret_key_base), true, { algorithm: 'HS256' }
+      puts decoded_token
+      puts "----------"
+      render json: decoded_token[0]
+    rescue JWT::VerificationError
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
