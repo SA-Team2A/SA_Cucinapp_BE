@@ -26,7 +26,8 @@ const recipe_fields_extractor = (body) => {
     cooking_time: body.cooking_time,
     photos: body.photos,
     ingredients: body.ingredients,
-    steps: body.steps
+    steps: body.steps,
+    user_id: body.user_id
   }
 }
 
@@ -113,6 +114,10 @@ get((req, res, next) => {
   if (query.ingredients) {
     const i = query.ingredients.map( i => new RegExp('^'+ i +'$', "i"))
     filter.ingredients = { $in: i }
+  }
+
+  if (query.user_id) {
+    filter.user_id = query.user_id
   }
 
   Recipe.find(filter, (err, recipes) => {

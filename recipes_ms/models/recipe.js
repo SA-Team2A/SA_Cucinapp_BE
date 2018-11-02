@@ -11,7 +11,7 @@ const recipe_schema = new mongo.Schema({
   },
   difficulty_id: {
     type: Number,
-    required: 'Difficuty id is required'
+    required: 'Difficuty_id is required'
   },
   portions:{
     type: Number,
@@ -35,6 +35,10 @@ const recipe_schema = new mongo.Schema({
   steps: {
     type: [String],
     required: 'Steps are required'
+  },
+  user_id: {
+    type: Number,
+    required: 'user_id is required'
   }
 }, { versionKey: false })
 

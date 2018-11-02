@@ -8,6 +8,7 @@ input New_recipe {
   photos: [String!]
   ingredients: [String!]!
   steps: [String!]!
+  user_id: Int!
 }
 
 input Update_recipe {
@@ -29,6 +30,7 @@ input Search_recipe {
   preparation_time: String
   cooking_time: String
   ingredients: [String]
+  user_id: Int
 }
 
 type Difficulty {
@@ -47,6 +49,7 @@ type Recipe {
   photos: [String]!
   ingredients: [String!]!
   steps: [String!]!
+  user_id: Int!
 }
 
 type Query {
