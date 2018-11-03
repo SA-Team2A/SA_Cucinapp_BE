@@ -32,16 +32,7 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 8}, if: :password
   validates :password, length: {maximum: 20}, if: :password
   validates_with EmailValidator
-
-  # def get_password
-  #   @password ||= Password.new(password_digest)
-  # end
-  #
-  # def encrypt_password(new_password)
-  #   @password = Password.create(new_password, cost: 8)
-  #   self.password_digest = @password
-  # end
-
+  
   def self.getByUsernameLike(username)
     # Pilas con SQL injection -> pilas con el ;
     self.where("username like ?", '%' + username + '%')

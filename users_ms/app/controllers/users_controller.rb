@@ -19,11 +19,29 @@ class UsersController < ApplicationController
   end
 
   def addFollower
-    # Necesita recibir por params los 2 ids de los users
+    user = User.find(params[:user_id])
+    follower = User.find(params[:follower_id])
+    if !(user && follower)
+      return render status: :not_found
+    end
+
+    if !user.followers.include? follower
+      user.followers.push(follower)
+    end
+    render json: user, status: :accepted
   end
 
   def removeFollower
-    # Necesita recibir por params los 2 ids de los users
+    user = User.find(params[:user_id])
+    follower = User.find(params[:follower_id])
+    if !(user && follower)
+      return render status: :not_found
+    end
+
+    if user.followers.include? follower
+      user.followers.delete(follower)
+    end
+    render json: user, status: :accepted
   end
 
   # GET /users/1
