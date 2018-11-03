@@ -1,7 +1,0 @@
-serializers
-remove id from follower model
-make manual tests
-make GET requests from Follower by follower and/or followee
-make correct responses
-make apy.yml
-make api_gateway

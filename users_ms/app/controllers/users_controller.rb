@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:index, :show, :destrey]
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users
@@ -9,6 +8,24 @@ class UsersController < ApplicationController
     render json: @users
   end
 
+  def login
+    user_id = nil
+    @user = User.getByEmail(params[:email])
+    if @user.authenticate(params[:password])
+      user_id = @user.id
+    end
+
+    render json: { user_id: user_id }, status: :ok
+  end
+
+  def addFollower
+    # Necesita recibir por params los 2 ids de los users
+  end
+
+  def removeFollower
+    # Necesita recibir por params los 2 ids de los users
+  end
+
   # GET /users/1
   def show
     render json: @user
@@ -16,12 +33,12 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    user = User.new(user_params)
 
-    if @user.save
-      render json: @user, status: :created, location: @user
+    if user.save
+      render json: user, status: :created, location: user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: user.errors, status: :unprocessable_entity
     end
   end
 
@@ -39,18 +56,6 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
-
-  def myverify
-    begin
-      puts "----------"
-      decoded_token = JWT.decode params[:token], Rails.application.credentials.fetch(:secret_key_base), true, { algorithm: 'HS256' }
-      puts decoded_token
-      puts "----------"
-      render json: decoded_token[0]
-    rescue JWT::VerificationError
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -59,6 +64,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation, :password_digest)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
 end

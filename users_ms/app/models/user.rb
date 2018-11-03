@@ -1,31 +1,54 @@
+# require 'carrierwave/orm/activerecord'
+# require 'bcrypt'
+
 class User < ApplicationRecord
-
   has_secure_password
+  # mount_uploader :user_img, "Aqui va otra cosa"
+  # include BCrypt
 
-  def to_token_payload
-    {
-        sub: id,
-        username: username,
-        email: email
-    }
+  has_and_belongs_to_many :followers,
+                          class_name: 'User',
+                          join_table: 'followers',
+                          association_foreign_key: 'follower_id'
+
+  class EmailValidator < ActiveModel::Validator
+    def validate(record)
+      unless record.email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+        record.errors[:email] << 'Not an email'
+      end
+    end
   end
 
-  validates_length_of :password, maximum: 72, minimum: 6, allow_nil: false, allow_blank: false
-  # validates_length_of :password_digest, maximum: 72, minimum: 6, allow_nil: false, allow_blank: false
+  validates :username, presence: true
+  validates :email, presence: true
+  validates :email, uniqueness: {
+    case_sensitive: false,
+  }
+  validates :username, uniqueness: {
+    case_sensitive: false,
+  }
 
-  validates_presence_of :email
-  validates_presence_of :username
-  validates_uniqueness_of :email
-  validates_uniqueness_of :username
+  validates :password, presence: true, if: :password
+  validates :password, length: {minimum: 8}, if: :password
+  validates :password, length: {maximum: 20}, if: :password
+  validates_with EmailValidator
 
+  # def get_password
+  #   @password ||= Password.new(password_digest)
+  # end
+  #
+  # def encrypt_password(new_password)
+  #   @password = Password.create(new_password, cost: 8)
+  #   self.password_digest = @password
+  # end
 
-  # follower_followers "names" the Follower join table for accessing through the follower association
-  has_many :follower_followers, foreign_key: :followee_id, class_name: "Follower"
-  # source: :follower matches with the belong_to :follower identification in the Follower model
-  has_many :followers, through: :follower_followers, source: :follower
+  def self.getByUsernameLike(username)
+    # Pilas con SQL injection -> pilas con el ;
+    self.where("username like ?", '%' + username + '%')
+  end
 
-  # followee_followers "names" the Follower join table for accessing through the followee association
-  has_many :followee_followers, foreign_key: :follower_id, class_name: "Follower"
-  # source: :followee matches with the belong_to :followee identification in the Follower model
-  has_many :followees, through: :followee_followers, source: :followee
+  def self.getByEmail(email)
+    self.where(email: email)[0]
+  end
+
 end
