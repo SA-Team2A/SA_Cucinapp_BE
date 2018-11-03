@@ -43,6 +43,10 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/User'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorModel'
         '422':
           description: Unprocessable Entity
           schema:
@@ -56,7 +60,7 @@ paths:
   /users/{id}:
     get:
       summary: Returns the user with the given identifier
-      operationId: getUserById
+      # operationId: getUserById
       parameters:
         - name: id
           in: path
@@ -97,8 +101,16 @@ paths:
           description: Ok
           schema:
             $ref: '#/definitions/User'
+        '400':
+          description: Bad request
+          schema:
+            $ref: '#/definitions/ErrorModel'
         '404':
           description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '422':
+          description: Unprocessable Entity
           schema:
             $ref: '#/definitions/ErrorModel'
         '500':
@@ -129,47 +141,186 @@ paths:
           schema:
             $ref: '#/definitions/ErrorModel'
 
+  /login:
+    post:
+      summary: Returns the user_id after check credentials
+      operationId: login
+      parameters:
+        - name: loginInput
+          in: body
+          required: true
+          description: User email and password
+          schema:
+            $ref: '#/definitions/LoginInput'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/LoginOutput'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+          description: Not Acceptable
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /users/{user_id}/addfollower/{follower_id}:
+    get:
+      summary: Makes the tracking relationship between users
+      # operationId: addFollower
+      parameters:
+        - name: user_id
+          in: path
+          description: The followed user identifier
+          required: true
+          type: string
+        - name: follower_id
+          in: path
+          description: The follower user identifier
+          required: true
+          type: string
+      responses:
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+  /users/{user_id}/removefollower/{follower_id}:
+    get:
+      summary: Destroy the tracking relationship between users
+      # operationId: removeFollower
+      parameters:
+        - name: user_id
+          in: path
+          description: The followed user identifier
+          required: true
+          type: string
+        - name: follower_id
+          in: path
+          description: The follower user identifier
+          required: true
+          type: string
+      responses:
+        '202':
+          description: Accepted
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
 definitions:
-  User:
+  SimpleUser:
     type: object
+    required:
+      - id
+      - username
+      - email
+      - created_at
+      - updated_at
     properties:
       id:
-        type: string
-      name:
         type: string
       username:
         type: string
       email:
         type: string
+      created_at:
+        type: string
+      updated_at:
+        type: string
+  User:
+    type: object
+    required:
+      - id
+      - username
+      - email
+      - followers
+      - created_at
+      - updated_at
+    properties:
+      id:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      followers:
+        type: array
+        items:
+          '#/definitions/SimpleUser'
+      created_at:
+        type: string
+      updated_at:
+        type: string
 
   UserInput:
     type: object
+    required:
+      - username
+      - email
+      - password
     properties:
-      name:
-        type: string
       username:
         type: string
       email:
         type: string
       password:
         type: string
-      password_confirmation:
-        type: string
+      # password_confirmation:
+      #   type: string
 
   UserInput2:
     type: object
     properties:
-      name:
-        type: string
       username:
         type: string
       email:
         type: string
+      password:
+        type: string
+      # password_confirmation:
+      #   type: string
 
   UsersList:
     type: array
     items:
-        $ref: '#/definitions/User'
+      $ref: '#/definitions/User'
+
+  LoginInput:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+
+
 
   ErrorModel:
     type: object

@@ -4,25 +4,84 @@ class UsersController < ApplicationController
   # GET /users
   def index
     @users = User.all
-
     render json: @users
   end
 
+  # GET /users/1
+  def show
+    if !@user
+      return render json: { message: "User with id #{params[:id]} not found", code: 404 }, status: :not_found
+    end
+    render json: @user, status: :ok
+  end
+
+  # POST /users
+  def create
+    if params[:user].empty?
+      return render json: { message: "User object not found or the value is empty", code: 400 }, status: :bad_request
+    end
+    user = User.new(user_params)
+    if user.save
+      render json: user, status: :created, location: user
+    else
+      puts json: user.errors
+      render json: { message: user.errors.messages.to_s, code: 422 } , status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /users/1
+  def update
+    if params[:user].empty?
+      return render json: { message: "User object not found or the value is empty", code: 400 }, status: :bad_request
+    end
+    if !@user
+      return render json: { message: "User with id #{params[:id]} not found", code: 404 }, status: :not_found
+    end
+    if @user.update(user_params)
+      render json: @user
+    else
+      render json: { message: user.errors.messages.to_s, code: 422 }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /users/1
+  def destroy
+    if !@user
+      return render json: { message: "User with id #{params[:id]} not found", code: 404 }, status: :not_found
+    end
+    @user.destroy
+    render json: @user, status: :ok
+  end
+
   def login
-    user_id = nil
-    @user = User.getByEmail(params[:email])
-    if @user.authenticate(params[:password])
-      user_id = @user.id
+    if !params[:email]
+      return render json: { message: "User email not found or the value is empty", code: 400 }, status: :bad_request
+    end
+    if !params[:password]
+      return render json: { message: "User password not found or the value is empty", code: 400 }, status: :bad_request
     end
 
-    render json: { user_id: user_id }, status: :ok
+    user_id = nil
+    @user = User.getByEmail(params[:email])
+    puts @user
+    if !@user
+      return render json: { message: "Email doesn't match with any user", code: 404 }, status: :not_found
+    end
+
+    if @user.authenticate(params[:password])
+      return render json: { user_id: @user.id }, status: :ok
+    end
+    render json: { message: "Password doesn't match", code: 406 }, status: :not_acceptable
   end
 
   def addFollower
-    user = User.find(params[:user_id])
-    follower = User.find(params[:follower_id])
-    if !(user && follower)
-      return render status: :not_found
+    user = User.find_by_id(params[:user_id])
+    follower = User.find_by_id(params[:follower_id])
+    if !user
+      return render json: { message: "User with id #{params[:user_id]} not found", code: 404 }, status: :not_found
+    end
+    if !follower
+      return render json: { message: "User with id #{params[:follower_id]} not found", code: 404 }, status: :not_found
     end
 
     if !user.followers.include? follower
@@ -32,10 +91,13 @@ class UsersController < ApplicationController
   end
 
   def removeFollower
-    user = User.find(params[:user_id])
-    follower = User.find(params[:follower_id])
-    if !(user && follower)
-      return render status: :not_found
+    user = User.find_by_id(params[:user_id])
+    follower = User.find_by_id(params[:follower_id])
+    if !user
+      return render json: { message: "User with id #{params[:user_id]} not found", code: 404 }, status: :not_found
+    end
+    if !follower
+      return render json: { message: "User with id #{params[:follower_id]} not found", code: 404 }, status: :not_found
     end
 
     if user.followers.include? follower
@@ -44,40 +106,13 @@ class UsersController < ApplicationController
     render json: user, status: :accepted
   end
 
-  # GET /users/1
-  def show
-    render json: @user
-  end
-
-  # POST /users
-  def create
-    user = User.new(user_params)
-
-    if user.save
-      render json: user, status: :created, location: user
-    else
-      render json: user.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /users/1
-  def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /users/1
-  def destroy
-    @user.destroy
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      # if params[:user].empty?
+      #   return render json: { message: "User object not found or the value is empty", code: 400 }, status: :bad_request
+      # end
+      @user = User.find_by_id(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
