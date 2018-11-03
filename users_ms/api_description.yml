@@ -1,0 +1,183 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for User
+  description: Javascript + MongoDB
+  license:
+    name: Cucinapp 2018
+host: 192.168.99.102:8080
+basePath: /users
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /users:
+    get:
+      summary: Returns all users
+      # operationId: getAllUsers
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/UsersList'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    post:
+      summary: Creates a new user
+      # operationId: createUser
+      parameters:
+        - name: user
+          in: body
+          required: true
+          description: User Object
+          schema:
+            $ref: '#/definitions/UserInput'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/User'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+
+  /users/{id}:
+    get:
+      summary: Returns the user with the given identifier
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the user to be returned
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates the user with the given identifier
+      # operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the user to be updated
+          required: true
+          type: string
+        - name: user
+          in: body
+          required: true
+          description: User Object
+          schema:
+            $ref: '#/definitions/UserInput2'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes a user with the given identifier
+      # operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the user to be deleted
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+
+  UserInput:
+    type: object
+    properties:
+      name:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      password_confirmation:
+        type: string
+
+  UserInput2:
+    type: object
+    properties:
+      name:
+        type: string
+      username:
+        type: string
+      email:
+        type: string
+
+  UsersList:
+    type: array
+    items:
+        $ref: '#/definitions/User'
+
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
