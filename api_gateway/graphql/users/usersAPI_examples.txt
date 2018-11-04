@@ -1,0 +1,143 @@
+# # Get all users
+# query{
+#   getUsers{
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+# # Get user with ID
+# query{
+#   getUserById(id: 6){
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+
+
+# # Add follower
+# query{
+#   addFollower(user_id: 7, follower_id:6){
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+# # Remove follower
+# query{
+#   removeFollower(user_id: 7, follower_id: 6){
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+# # Create user
+# mutation{
+#   createUser(user: {
+#     username: "pepe"
+#     email: "pepe@gmail.com"
+#     password: "12345678"
+#   }){
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+# # UpdateUser
+# mutation{
+#   updateUser(id: 10, user: {
+#     username: "pepa"
+#   }){
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+# Delete user
+# mutation{
+#   deleteUser(id:10){
+#     id
+#     username
+#     email
+#     followers {
+#       id
+#       username
+#       email
+#       created_at
+#       updated_at
+#     }
+#     created_at
+#     updated_at
+#   }
+# }
+
+# Login
+# mutation{
+#   login(loginInput: {
+#     email: "juanpos97@gmail.com"
+#     password: "juanjuan"
+#   }){
+#     user_id
+#   }
+# }
