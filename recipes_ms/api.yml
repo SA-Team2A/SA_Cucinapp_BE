@@ -1,0 +1,214 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservice for Recipes
+  description: NodeJS + Javascript + MongoDB
+  license:
+    name: Cucinapp 2018
+host: 192.168.99.102:8080
+basePath: /recipes
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /recipes:
+    get:
+      summary: Returns all recipes
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/RecipesList'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    post:
+      summary: Creates a new recipe
+      parameters:
+        - name: recipe
+          in: body
+          required: true
+          description: Recipe Object
+          schema:
+            $ref: '#/definitions/RecipeInput'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Recipe'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+
+  /recipes/{id}:
+    get:
+      summary: Returns the recipe with the given identifier
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the recipe to be returned
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Recipe'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    put:
+      summary: Updates the recipe with the given identifier
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the recipe to be updated
+          required: true
+          type: string
+        - name: recipe
+          in: body
+          required: true
+          description: Recipe Object
+          schema:
+            $ref: '#/definitions/RecipeInput'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Recipe'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    delete:
+      summary: Deletes a recipe with the given identifier
+      parameters:
+        - name: id
+          in: path
+          description: The identifier of the recipe to be deleted
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Recipe'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+definitions:
+  Recipe:
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      dificulty_id:
+        type: integer
+      portions:
+        type: integer
+      preparation_time:
+        type: integer
+      cooking_time:
+        type: integer
+      photos:
+        type: array
+        items:
+          type: string
+      ingredients:
+        type: array
+        items:
+          $ref: '#/definitions/Ingredient'
+      steps:
+        type: array
+        items:
+          type: string
+
+
+  RecipeInput:
+    type: object
+    required:
+      - name
+      - description
+      - dificulty_id
+      - ingredients
+      - steps
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      dificulty_id:
+        type: integer
+      portions:
+        type: integer
+      preparation_time:
+        type: integer
+      cooking_time:
+        type: integer
+      photos:
+        type: array
+        items:
+          type: string
+      ingredients:
+        type: array
+        items:
+          $ref: '#/definitions/Ingredient'
+      steps:
+        type: array
+        items:
+          type: string
+
+  RecipesList:
+    type: array
+    items:
+        $ref: '#/definitions/Recipe'
+
+  Ingredient:
+    type: object
+    properties:
+      name:
+        type: string
+      amount:
+        type: integer
+
+  ErrorModel:
+    type: object
+    properties:
+      status:
+        type: number
+      message:
+        type: string
+      info:
+        type: string

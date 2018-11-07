@@ -1,0 +1,14 @@
+// Clean Up
+docker stop collectionssapp.test; docker stop db; docker container prune; docker volume prune;
+
+// Execute
+docker-compose build --no-cache
+docker-compose up --no-build
+
+// .NET Core Database Migration
+dotnet restore
+
+docker volume create dbvol
+docker run --name db -e MYSQL_RANDOM_ROOT_PASSWORD=yes -e MYSQL_DATABASE=Collections -e MYSQL_USER=user_name_1 -e MYSQL_PASSWORD=my-secret-pw -v dbvol:/var/lib/mysql -p 3306:3306 mysql/mysql-server:5.7
+
+dotnet ef migrations add Initial

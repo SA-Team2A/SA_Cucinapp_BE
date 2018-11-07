@@ -1,0 +1,23 @@
+version: "2.1"
+services:
+  mongo:
+    image: mongo
+    command: mongod --port 27019
+    ports:
+      - "27019:27019"
+    healthcheck:
+      # test: echo "db.stats().ok" | mongo localhost:27017/objects --quiet
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27019/comments --quiet
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    ports:
+      - "8085:8085"
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      MONGO_URI: mongodb://mongo:27019/comments
