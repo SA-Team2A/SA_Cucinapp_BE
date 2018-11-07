@@ -1,0 +1,51 @@
+type SimpleUser {
+  id: ID!
+  username: String!
+  email: String!
+  created_at: String!
+  updated_at: String!
+}
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  followers: [SimpleUser!]!
+  created_at: String!
+  updated_at: String!
+}
+type LoginOutput {
+  user_id: Int
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  password: String!
+}
+input UserInput2 {
+  username: String
+  email: String
+  password: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+
+
+type Query {
+  getUsers: [User!]!
+  getUserById(id: ID!): User!
+  addFollower(user_id: ID!, follower_id: ID!): User!
+  removeFollower(user_id: ID!, follower_id: ID!): User!
+  # searchRecipes(search: Search_recipe!): [Recipes]!
+}
+
+type Mutation {
+  createUser(user: UserInput!): User!
+  updateUser(id: ID!, user: UserInput2!): User!
+  deleteUser(id: ID!): User!
+  login(loginInput: LoginInput!): LoginOutput!
+}
