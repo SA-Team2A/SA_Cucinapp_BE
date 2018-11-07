@@ -1,0 +1,18 @@
+version: "3"
+services:
+  web:
+    build: .
+    command: bundle exec rails s -p 8083 -b '0.0.0.0'
+    ports:
+      - "8083:8083"
+    volumes:
+    - .:/users_ms
+    depends_on:
+    - users_db
+
+  users_db:
+    image: postgres
+    ports:
+    - "5432:5432"
+    environment:
+     POSTGRES_PASSWORD: password
