@@ -5,7 +5,7 @@ const recipes_url = `http://${recipes_baseUrl}:${recipes_port}`
 
 // Collections_ms
 const collections_port = process.env.COLLECTIONS_PORT || 8082
-const collections_baseUrl = process.env.COLLECTIONS_URL || 'localhost'
+const collections_baseUrl = process.env.COLLECTIONS_URL || '192.168.99.100'
 const collections_url = `http://${collections_baseUrl}:${collections_port}`
 
 // Users_ms

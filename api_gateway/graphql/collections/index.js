@@ -10,7 +10,7 @@ const resolvers = {
 	getCollections: async () => {
 		return await GET(collections_url, "/collection/")
 	},
-	getCollection: async ({ id }) => {
+	getCollectionById: async ({ id }) => {
 		return await GET(collections_url, `/collection/${id}`)
 	},
 	createCollection: async ({ input }) => {

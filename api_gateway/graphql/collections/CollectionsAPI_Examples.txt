@@ -2,16 +2,16 @@
 query{
   getCollections{
     id
-		userID
+		user_id
     name
   }
 }
 
 // Get collection with ID
 query{
-  getCollection(id: 1){
+  getCollectionById(id: 1){
     id
-		userID
+		user_id
     name
   }
 }
@@ -19,12 +19,12 @@ query{
 // Create a collection
 mutation{
   createCollection(input: {
-		userID: 1
+		user_id: 1
     name: "Favoritos"
   })
 	{
 		id
-		userID
+		user_id
 		name
 	}
 }
@@ -32,12 +32,12 @@ mutation{
 // Update collection with ID
 mutation{
   updateCollection(id: 1, input: {
-		userID: 1
+		user_id: 1
     name: "Comida Navideña"
   })
 	{
 		id
-		userID
+		user_id
 		name
 	}
 }
@@ -47,68 +47,68 @@ mutation{
   deleteCollection(id: 1)
 	{
 		id
-		userID
+		user_id
 		name
 	}
 }
 
 // Get all recipes
 query{
-  getRecipes{
+  getCollectionRecipes{
     id
-		collectionID
-		recipeID
+		collection_id
+		recipe_id
     name
   }
 }
 
 // Get recipe with ID
 query{
-  getRecipe(id: 1){
+  getCollectionRecipeById(id: 1){
     id
-		collectionID
-		recipeID
+		collection_id
+		recipe_id
     name
   }
 }
 
 // Create a recipe
 mutation{
-  createRecipe(input: {
-		collectionID: 1
-		recipeID: 1
+  addToCollection(input: {
+		collection_id: 1
+		recipe_id: 1
 		name: "Receta Colombiana"
   })
 	{
 		id
-		collectionID
-		recipeID
+		collection_id
+		recipe_id
     name
 	}
 }
 
 // Update recipe with ID
 mutation{
-  updateRecipe(id: 1, input:{
-    collectionID: 2
-		recipeID: 2
+  updateCollectionRecipe(id: 1, input:{
+    collection_id: 2
+		recipe_id: 2
 		name: "Receta Inglesa"
   })
 	{
 		id
-		collectionID
-		recipeID
+		collection_id
+		recipe_id
     name
 	}
 }
 
 // Delete recipe with ID
 mutation{
-  deleteRecipe(id: 1)
+  removeFromCollection(id: 1)
 	{
 		id
-		collectionID
-		recipeID
+		collection_id
+		recipe_id
     name
 	}
 }

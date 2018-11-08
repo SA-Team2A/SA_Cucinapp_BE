@@ -1,0 +1,11 @@
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\obj\Debug\netcoreapp2.0\CollectionMS.csprojAssemblyReference.cache
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\obj\Debug\netcoreapp2.0\CollectionMS.csproj.CoreCompileInputs.cache
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\obj\Debug\netcoreapp2.0\CollectionMS.AssemblyInfoInputs.cache
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\obj\Debug\netcoreapp2.0\CollectionMS.AssemblyInfo.cs
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\bin\Debug\netcoreapp2.0\CollectionMS.deps.json
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\bin\Debug\netcoreapp2.0\CollectionMS.runtimeconfig.json
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\bin\Debug\netcoreapp2.0\CollectionMS.runtimeconfig.dev.json
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\bin\Debug\netcoreapp2.0\CollectionMS.dll
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\bin\Debug\netcoreapp2.0\CollectionMS.pdb
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\obj\Debug\netcoreapp2.0\CollectionMS.dll
+C:\SOrloff\Arquitectura de Software\Cucinapp_Back\collections_ms\obj\Debug\netcoreapp2.0\CollectionMS.pdb

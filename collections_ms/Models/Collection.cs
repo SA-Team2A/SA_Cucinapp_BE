@@ -9,7 +9,7 @@ namespace CollectionMS.Models
 		public int ID { get; set; }
 		
 		[Range(1, int.MaxValue)]
-		public int UserID { get; set; }
+		public int User_id { get; set; }
 
 		[Required(ErrorMessage = "Please enter a Name for the Collection.")]
 		[StringLength(50)]

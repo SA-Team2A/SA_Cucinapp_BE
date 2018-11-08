@@ -17,8 +17,8 @@ input CollectionInput {
 }
 
 input CollectionRecipeInput {
-	collectionID: Int!
-	recipeID: Int!
+	collection_id: Int!
+	recipe_id: Int!
 	name: String!
 }
 
