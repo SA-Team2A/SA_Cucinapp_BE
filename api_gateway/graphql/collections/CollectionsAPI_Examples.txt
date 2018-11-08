@@ -9,7 +9,16 @@ query{
 
 // Get collection with ID
 query{
-  getCollectionById(id: 1){
+  getCollectionsByUserId(user_id: 1){
+    id
+		user_id
+    name
+  }
+}
+
+// Get collections of a user with user_id
+query{
+  getCollections{
     id
 		user_id
     name
@@ -72,11 +81,21 @@ query{
   }
 }
 
+// Get recipe by name with user_id
+query{
+  getRecipeByName(user_id: 1, name: "Favoritos"){
+    id
+		collection_id
+		recipe_id
+    name
+  }
+}
+
 // Create a recipe
 mutation{
   addToCollection(input: {
 		collection_id: 1
-		recipe_id: 1
+		recipe_id: "1"
 		name: "Receta Colombiana"
   })
 	{
@@ -91,7 +110,7 @@ mutation{
 mutation{
   updateCollectionRecipe(id: 1, input:{
     collection_id: 2
-		recipe_id: 2
+		recipe_id: "2"
 		name: "Receta Inglesa"
   })
 	{

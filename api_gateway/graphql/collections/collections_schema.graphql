@@ -27,6 +27,9 @@ type Query {
 	getMyCollections: [Collection!]!
   getCollectionById(id: ID!): Collection!
 
+	getCollectionsByUserId(user_id: Int!): [Collection!]!
+	getRecipeByName(user_id: Int!, name: String!): [CollectionRecipe!]!
+
   getCollectionRecipes: [CollectionRecipe!]!
   getCollectionRecipeById(id: ID!): CollectionRecipe!
 }
