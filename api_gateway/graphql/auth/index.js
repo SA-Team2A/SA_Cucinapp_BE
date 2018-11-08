@@ -26,7 +26,7 @@ const resolvers = {
     if (res.response) {
       return res
     }
-    return await sign(res._id)
+    return await sign(res.id)
   }
 }
 

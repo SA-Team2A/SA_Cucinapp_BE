@@ -23,11 +23,12 @@ app.use((req, res, next) => {
 // Login, Register and Verify tokens
 app.use('/auth', graphqlHTTP(graphqlAuth))
 
+// API GraphQL without authentication (only use 1)
+app.use('/test', graphqlHTTP(graphqlAPI))
+
 // API GraphQL with authentication (only use 1)
 app.use('/', passport.authenticate('jwt', { session: false }), graphqlHTTP(graphqlAPI))
 
-// API GraphQL without authentication (only use 1)
-// app.use('/', graphqlHTTP(graphqlAPI))
 
 // URL Not found
 app.use((req, res, next) => {

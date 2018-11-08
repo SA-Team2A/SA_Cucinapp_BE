@@ -1,23 +1,20 @@
 input New_recipe {
   name: String!
   description: String!
-  difficulty_id: Int!
-  portions: Int
-  preparation_time: Int
-  cooking_time: Int
-  photos: [String!]!
+  difficulty_id: ID!
+  portions: Int!
+  preparation_time: Int!
+  photos: [String!]
   ingredients: [String!]!
   steps: [String!]!
-  user_id: Int!
 }
 
 input Update_recipe {
   name: String
   description: String
-  difficulty_id: Int
+  difficulty_id: ID
   portions: Int
   preparation_time: Int
-  cooking_time: Int
   photos: [String]
   ingredients: [String!]
   steps: [String!]
@@ -25,43 +22,41 @@ input Update_recipe {
 
 input Search_recipe {
   name: String
-  difficulty_id: [String]
+  difficulty_id: [ID!]
   portions: String
   preparation_time: String
-  cooking_time: String
-  ingredients: [String]
-  user_id: Int
+  ingredients: [String!]
+  user_id: ID
 }
 
 type Difficulty {
-  _id: Int!
+  _id: ID!
   description: String!
 }
 
 type Recipe {
-  _id: String!
+  _id: ID!
   name: String!
   description: String!
   difficulty: Difficulty!
   portions: Int
   preparation_time: Int
-  cooking_time: Int
   photos: [String!]!
   ingredients: [String!]!
   steps: [String!]!
-  user_id: Int!
+  user_id: ID!
 }
 
 type Query {
   getRecipes: [Recipe!]!
   getMyRecipes: [Recipe]
   getDifficulties: [Difficulty!]!
-  getRecipeById(_id: String!): Recipe!
+  getRecipeById(_id: ID!): Recipe!
   searchRecipes(search: Search_recipe!): [Recipe!]!
 }
 
 type Mutation {
   createRecipe(recipe: New_recipe!): Recipe!
-  updateRecipe(_id: String!, recipe: Update_recipe!): Recipe!
-  deleteRecipe(_id: String!): Recipe!
+  updateRecipe(_id: ID!, recipe: Update_recipe!): Recipe!
+  deleteRecipe(_id: ID!): Recipe!
 }

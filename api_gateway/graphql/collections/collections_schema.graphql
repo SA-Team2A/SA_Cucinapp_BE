@@ -1,24 +1,24 @@
 type Collection {
 	id: ID!
-	user_id: Int!
+	user_id: ID!
 	name: String!
 }
 
 type CollectionRecipe {
 	id: ID!
-	collection_id: Int!
-	recipe_id: String!
+	collection_id: ID!
+	recipe_id: ID!
   name: String!
 }
 
 input CollectionInput {
-	user_id: Int!
+	user_id: ID!
 	name: String!
 }
 
 input CollectionRecipeInput {
-	collection_id: Int!
-	recipe_id: Int!
+	collection_id: ID!
+	recipe_id: ID!
 	name: String!
 }
 

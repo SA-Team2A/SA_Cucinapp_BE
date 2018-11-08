@@ -2,16 +2,12 @@ type SimpleUser {
   id: ID!
   username: String!
   email: String!
-  created_at: String!
-  updated_at: String!
 }
 type User {
   id: ID!
   username: String!
   email: String!
   followers: [SimpleUser!]!
-  created_at: String!
-  updated_at: String!
 }
 
 input UserInput {

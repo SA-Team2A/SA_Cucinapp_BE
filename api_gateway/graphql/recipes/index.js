@@ -25,8 +25,11 @@ const resolvers = {
     let res = await GET(recipes_url, '/recipes/search', search)
     return res
   },
-  createRecipe: async ({ recipe }) => {
-    let res = await POST(recipes_url, '/recipes', recipe)
+  createRecipe: async ({ recipe }, context, info) => {
+    let user_id = context.user.id
+    let body = { ...recipe, user_id }
+    console.log(body);
+    let res = await POST(recipes_url, '/recipes', body )
     return res
   },
   updateRecipe: async ({ _id, recipe }) => {
