@@ -24,10 +24,10 @@ app.use((req, res, next) => {
 app.use('/auth', graphqlHTTP(graphqlAuth))
 
 // API GraphQL with authentication (only use 1)
-// app.use('/', passport.authenticate('jwt', { session: false }), graphqlHTTP(graphqlAPI))
+app.use('/', passport.authenticate('jwt', { session: false }), graphqlHTTP(graphqlAPI))
 
 // API GraphQL without authentication (only use 1)
-app.use('/', graphqlHTTP(graphqlAPI))
+// app.use('/', graphqlHTTP(graphqlAPI))
 
 // URL Not found
 app.use((req, res, next) => {

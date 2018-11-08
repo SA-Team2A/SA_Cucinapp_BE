@@ -8,6 +8,11 @@ const resolvers = {
     let res = await GET(recipes_url, '/recipes')
     return res
   },
+  getMyRecipes: async (args, context, info) => {
+    let user_id = context.user.id
+    let res = await GET(recipes_url, '/recipes/search', { user_id })
+    return res
+  },
   getDifficulties: async () => {
     let res = await GET(recipes_url, '/difficulties')
     return res

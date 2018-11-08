@@ -8,6 +8,9 @@ const resolvers = {
   getUsers: async () => {
     return await GET(users_url, '/users')
   },
+  getMyUser: async (args, context, info) => {
+    return context.user
+  },
   getUserById: async ({ id }) => {
     return await GET(users_url, `/users/${id}`)
   },
@@ -19,9 +22,6 @@ const resolvers = {
   },
 
   // Mutations
-  createUser: async ({ user }) => {
-    return await POST(users_url, `/users`, { user: user })
-  },
   addFollower: async ({ user_id, follower_id }) => {
     return await GET(users_url, `/users/${user_id}/addfollower/${follower_id}`)
   },

@@ -117,7 +117,7 @@ get((req, res, next) => {
   }
 
   if (query.user_id) {
-    filter.user_id = query.user_id
+    filter.user_id = parseInt(query.user_id)
   }
 
   Recipe.find(filter, (err, recipes) => {
