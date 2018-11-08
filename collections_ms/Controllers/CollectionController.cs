@@ -60,7 +60,7 @@ namespace CollectionMS.Controllers
 			}
 			else
 			{
-				collectionOld.UserID = collection.UserID;
+				collectionOld.User_id = collection.User_id;
 				collectionOld.Name = collection.Name;
 				db.Update(collectionOld);
 				db.SaveChanges();

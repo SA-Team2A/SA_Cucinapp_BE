@@ -16,7 +16,7 @@ namespace CollectionMS.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    User_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +29,9 @@ namespace CollectionMS.Migrations
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    CollectionID = table.Column<int>(type: "int", nullable: false),
+                    Collection_id = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
-                    RecipeID = table.Column<int>(type: "int", nullable: false)
+                    Recipe_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
