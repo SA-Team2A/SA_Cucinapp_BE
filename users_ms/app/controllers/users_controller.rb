@@ -22,7 +22,8 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    if params[:user].empty?
+    if !params[:user] || params[:user].empty?
+    # if params[:user].empty?
       error = {
         info: "User object not found or the value is empty",
         status: 400,
@@ -32,6 +33,16 @@ class UsersController < ApplicationController
     end
 
     user = User.new(user_params)
+    # puts params
+    # puts params[:user_img]
+    # File.open(params[:user_img]) do |f|
+    #   user.user_img = f
+    # end
+    # user.user_img = params[:user_img]
+    # puts user.user_img
+    # puts user.user_img.file
+    # puts user.user_img.file.nil?
+    # user.user_img = new File(user_params[:src_user_img])
     if user.save
       render json: user, status: :created, location: user
     else
@@ -41,7 +52,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   def update
-    if params[:user].empty?
+    if !params[:user] || params[:user].empty?
       error = {
         info: "User object not found or the value is empty",
         status: 400,
@@ -204,6 +215,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
+      params.require(:user).permit(:username, :email, :password, :password_confirmation, :user_img)
     end
 end

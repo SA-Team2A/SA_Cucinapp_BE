@@ -1,9 +1,13 @@
 # require 'carrierwave/orm/activerecord'
 # require 'bcrypt'
 
+
+require 'carrierwave/orm/activerecord'
+# require 'rmagick'
+
 class User < ApplicationRecord
   has_secure_password
-  # mount_uploader :user_img, "Aqui va otra cosa"
+  mount_uploader :user_img, UserUploader
   # include BCrypt
 
   has_and_belongs_to_many :followers,
