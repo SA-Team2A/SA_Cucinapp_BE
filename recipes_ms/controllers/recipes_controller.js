@@ -23,7 +23,6 @@ const recipe_fields_extractor = (body) => {
     difficulty_id: body.difficulty_id,
     portions: body.portions,
     preparation_time: body.preparation_time,
-    cooking_time: body.cooking_time,
     photos: body.photos,
     ingredients: body.ingredients,
     steps: body.steps,
@@ -99,17 +98,7 @@ get((req, res, next) => {
       filter.preparation_time = { $lte: parseInt(max) }
     }
   }
-  // puntos de referencia
-  if (query.cooking_time) {
-    const { min, max } = JSON.parse(query.cooking_time)
-    if (min && max) {
-      filter.cooking_time = { $gte: parseInt(min), $lte: parseInt(max) }
-    } else if (min) {
-      filter.cooking_time = { $gte: parseInt(min) }
-    } else {
-      filter.cooking_time = { $lte: parseInt(max) }
-    }
-  }
+
   // parametro multiple
   if (query.ingredients) {
     const i = query.ingredients.map( i => new RegExp('^'+ i +'$', "i"))

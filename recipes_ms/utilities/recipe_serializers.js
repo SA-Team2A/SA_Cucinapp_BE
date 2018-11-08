@@ -8,10 +8,10 @@ const load_difficulty = (recipe, difficulty) => {
     difficulty,
     portions: recipe.portions,
     preparation_time: recipe.preparation_time,
-    cooking_time: recipe.cooking_time,
     photos: recipe.photos,
     ingredients: recipe.ingredients,
-    steps: recipe.steps
+    steps: recipe.steps,
+    user_id: recipe.user_id
   }
 }
 
