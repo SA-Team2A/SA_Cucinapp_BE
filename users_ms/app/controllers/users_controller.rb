@@ -35,6 +35,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     # puts params
     # puts params[:user_img]
+    # puts params[:user_img]? true : false
+    # puts params[:user_img]? "mytrue" : user.user_img = nil
+
     # File.open(params[:user_img]) do |f|
     #   user.user_img = f
     # end
