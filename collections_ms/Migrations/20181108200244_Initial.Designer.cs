@@ -11,7 +11,7 @@ using System;
 namespace CollectionMS.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20181108021054_Initial")]
+    [Migration("20181108200244_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,7 +48,9 @@ namespace CollectionMS.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int>("Recipe_id");
+                    b.Property<string>("Recipe_id")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.HasKey("ID");
 

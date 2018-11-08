@@ -18,13 +18,16 @@ input CollectionInput {
 
 input CollectionRecipeInput {
 	collection_id: Int!
-	recipe_id: Int!
+	recipe_id: String!
 	name: String!
 }
 
 type Query {
 	getCollections: [Collection!]!
   getCollectionById(id: ID!): Collection!
+	
+	getCollectionsByUserId(user_id: Int!): [Collection!]!
+	getRecipeByName(user_id: Int!, name: String!): [CollectionRecipe!]!
 
   getCollectionRecipes: [CollectionRecipe!]!
   getCollectionRecipeById(id: ID!): CollectionRecipe!
