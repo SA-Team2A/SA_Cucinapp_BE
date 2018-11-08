@@ -8,4 +8,4 @@ class Comment(db.Document):
     user_id = db.IntField()
     recipe_id = db.StringField()
     comment = db.StringField()
-    created_date = db.DateTimeField(default= utc_to_local(datetime.utcnow()))
+    created_date = db.StringField()
