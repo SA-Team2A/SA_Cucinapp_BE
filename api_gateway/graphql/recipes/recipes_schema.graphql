@@ -54,6 +54,7 @@ type Recipe {
 
 type Query {
   getRecipes: [Recipe!]!
+  getMyRecipes: [Recipe]
   getDifficulties: [Difficulty!]!
   getRecipeById(_id: String!): Recipe!
   searchRecipes(search: Search_recipe!): [Recipe!]!

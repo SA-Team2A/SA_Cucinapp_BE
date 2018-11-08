@@ -7,11 +7,12 @@ const { sign, verify } = require('../../authentication/jwt')
 
 const resolvers = {
   login: async ({ input }) => {
+    console.log(input)
     let res = await POST(users_url, '/login', input)
-    if (res.response || !res.id) {
+    if (res.response || !res.user_id) {
       return null
     }
-    return await sign(res.id)
+    return await sign(res.user_id)
   },
   verify: async ({ jwt }) => {
     let id = await verify(jwt)
@@ -21,7 +22,7 @@ const resolvers = {
     return null
   },
   createUser: async ({ input }) => {
-    let res = await POST(users_url, '/users', input)
+    let res = await POST(users_url, '/users', { user: input })
     if (res.response) {
       return res
     }

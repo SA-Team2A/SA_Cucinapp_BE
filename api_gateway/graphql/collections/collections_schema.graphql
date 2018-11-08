@@ -24,6 +24,7 @@ input CollectionRecipeInput {
 
 type Query {
 	getCollections: [Collection!]!
+	getMyCollections: [Collection!]!
   getCollectionById(id: ID!): Collection!
 
   getCollectionRecipes: [CollectionRecipe!]!

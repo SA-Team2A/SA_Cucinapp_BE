@@ -10,6 +10,10 @@ const resolvers = {
 	getCollections: async () => {
 		return await GET(collections_url, "/collection/")
 	},
+	getMyCollections: async (args, context, info) => {
+		// Realizar la busqueda por user_id desde context.user
+		return []
+	},
 	getCollectionById: async ({ id }) => {
 		return await GET(collections_url, `/collection/${id}`)
 	},
