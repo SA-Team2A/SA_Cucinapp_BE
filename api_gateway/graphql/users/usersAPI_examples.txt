@@ -1,143 +1,68 @@
-# # Get all users
-# query{
-#   getUsers{
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
+fragment imageUrl on UserImg {
+  url
+}
+fragment simpleUserFields on SimpleUser {
+  id
+  username
+  email
+  user_img {
+  	...imageUrl
+  }
+}
+fragment completeUserFields on User {
+  id
+  username
+  email
+  user_img {
+  	...imageUrl
+  }
+  followers{
+    ...simpleUserFields
+  }
+}
 
-# # Get user with ID
-# query{
-#   getUserById(id: 6){
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
+query{
 
+	# Get all users
+	getUsers{
+	...simpleUserFields
+	}
 
+	# Get user with ID
+	getUserById(id: 3){
+	...completeUserFields
+	}
 
-# # Add follower
-# query{
-#   addFollower(user_id: 7, follower_id:6){
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
+}
 
-# # Remove follower
-# query{
-#   removeFollower(user_id: 7, follower_id: 6){
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
-
-# # Create user
 # mutation{
-#   createUser(user: {
-#     username: "pepe"
-#     email: "pepe@gmail.com"
-#     password: "12345678"
-#   }){
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
 
-# # UpdateUser
-# mutation{
-#   updateUser(id: 10, user: {
-#     username: "pepa"
-#   }){
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
+	# # UpdateUser
+	# updateUser(id: 4, user: {
+	# username:"juan4"
+	# # user_img: {
+	# #   url: "/public/uploads/user/user_img/4/my_user_image.png"
+	# # }
+	# # user_img: null
+	# # user_img: { url: null }
+	# }){
+	# ...completeUserFields
+	# }
 
-# Delete user
-# mutation{
-#   deleteUser(id:10){
-#     id
-#     username
-#     email
-#     followers {
-#       id
-#       username
-#       email
-#       created_at
-#       updated_at
-#     }
-#     created_at
-#     updated_at
-#   }
-# }
 
-# Login
-# mutation{
-#   login(loginInput: {
-#     email: "juanpos97@gmail.com"
-#     password: "juanjuan"
-#   }){
-#     user_id
-#   }
+	# # Add follower
+	# addFollower(user_id: 3, follower_id: 4){
+	# ...completeUserFields
+	# }
+
+	# # Remove follower
+	# removeFollower(user_id: 3, follower_id: 4){
+	# ...completeUserFields
+	# }
+  
+  # # Delete user
+  # deleteUser(id:4){
+  #   ...completeUserFields
+  # }
+
 # }
