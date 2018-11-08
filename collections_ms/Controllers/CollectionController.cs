@@ -30,51 +30,6 @@ namespace CollectionMS.Controllers
 			}
 			return Ok(collection);
 		}
-		
-		// Get collections with given user_id.
-		[HttpGet("user/{userID:int}")]
-		public List<Collection> GetCollectionByUser(int userID)
-		{
-			List<Collection> collections = db.Collections.ToList();
-			List<Collection> userCollections = new List<Collection>();
-			
-			foreach (Collection collection in collections)
-			{
-				if (collection.User_id == userID)
-				{
-					userCollections.Add(collection);
-				}
-			}
-			
-			return userCollections;
-		}
-		
-		// Get collection with given name from a user with given user_id.
-		[HttpGet("user/{userID:int}/{name}")]
-		public List<CollectionRecipe> GetCollectionByName(int userID, string name)
-		{
-			List<Collection> collections = db.Collections.ToList();
-			List<CollectionRecipe> recipes = db.Recipes.ToList();
-			
-			List<Collection> userCollections = new List<Collection>();
-			List<CollectionRecipe> userRecipes = new List<CollectionRecipe>();
-			
-			foreach (Collection collection in collections)
-			{
-				if (collection.User_id == userID && collection.Name == name)
-				{
-					foreach (CollectionRecipe recipe in recipes)
-					{
-						if (recipe.Collection_id == collection.ID)
-						{
-							userRecipes.Add(recipe);
-						}
-					}
-				}
-			}
-			
-			return userRecipes;
-		}
 
 		// Add a collection to db.
 		[HttpPost]

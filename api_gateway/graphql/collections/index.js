@@ -13,12 +13,6 @@ const resolvers = {
 	getCollectionById: async ({ id }) => {
 		return await GET(collections_url, `/collection/${id}`)
 	},
-	getCollectionsByUserId: async ({ user_id }) => {
-		return await GET(collections_url, `/collection/user/${user_id}`)
-	},
-	getRecipeByName: async ({ user_id, name }) => {
-		return await GET(collections_url, `/collection/user/${user_id}/${name}`)
-	},
 	createCollection: async ({ input }) => {
 		return await POST(collections_url, "/collection/", input)
 	},

@@ -47,9 +47,7 @@ namespace CollectionMS.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("Recipe_id")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<int>("Recipe_id");
 
                     b.HasKey("ID");
 

@@ -4,7 +4,7 @@ swagger: '2.0'
 info:
   version: 1.0.0
   title: Microservice for Collections
-  description: C# + MySQL
+  description: C# + MongoDB
   license:
     name: Software Architecture 2018-II
 host: 192.168.99.100:8082
@@ -34,7 +34,6 @@ paths:
             $ref: '#/definitions/ErrorModel'
       tags: 
         - Collection
-        
     post:
       summary: Creates a new collection
       operationId: createCollection
@@ -60,32 +59,6 @@ paths:
             $ref: '#/definitions/ErrorModel'
         '422':
           description: Unprocessable Entity
-          schema:
-            $ref: '#/definitions/ErrorModel'
-        '500':
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/ErrorModel'
-      tags: 
-        - Collection
-  
-  /collection/user/{user_id}:
-    get:
-      summary: Returns all collections belonging to a user
-      operationId: getAllCollectionsByUser
-      parameters:
-        - name: user_id
-          in: path
-          description: The ID of the user to obtain collections to be returned
-          required: true
-          type: integer
-      responses:
-        '200':
-          description: Ok
-          schema:
-            $ref: '#/definitions/CollectionList'
-        '400':
-          description: Bad Request (Invalid Params)
           schema:
             $ref: '#/definitions/ErrorModel'
         '500':
@@ -193,7 +166,7 @@ paths:
         '200':
           description: Ok
           schema:
-            $ref: '#/definitions/CollectionRecipeList'
+            $ref: '#/definitions/RecipeList'
         '400':
           description: Bad Request (Invalid Params)
           schema:
@@ -211,14 +184,14 @@ paths:
         - name: recipe
           in: body
           required: true
-          description: CollectionRecipe Object
+          description: Recipe Object
           schema:
-            $ref: '#/definitions/CollectionRecipeInput'
+            $ref: '#/definitions/RecipeInput'
       responses:
         '201':
           description: Created
           schema:
-            $ref: '#/definitions/CollectionRecipe'
+            $ref: '#/definitions/Recipe'
         '400':
           description: Bad Request
           schema:
@@ -252,7 +225,7 @@ paths:
         '200':
           description: Ok
           schema:
-            $ref: '#/definitions/CollectionRecipe'
+            $ref: '#/definitions/Recipe'
         '400':
           description: Bad Request (Invalid Params)
           schema:
@@ -282,12 +255,12 @@ paths:
           required: true
           description: Recipe Object
           schema:
-            $ref: '#/definitions/CollectionRecipeInput'
+            $ref: '#/definitions/RecipeInput'
       responses:
         '200':
           description: Ok
           schema:
-            $ref: '#/definitions/CollectionRecipe'
+            $ref: '#/definitions/Recipe'
         '400':
           description: Bad Request
           schema:
@@ -316,7 +289,7 @@ paths:
         '200':
           description: Ok
           schema:
-            $ref: '#/definitions/CollectionRecipe'
+            $ref: '#/definitions/Recipe'
         '404':
           description: Not Found
           schema:
@@ -336,16 +309,12 @@ definitions:
     properties:
       id:
         type: integer
-      user_id:
-        type: integer
       name:
         type: string
 
   CollectionInput:
     type: object
     properties:
-      user_id:
-        type: integer
       name:
         type: string
   
@@ -355,7 +324,7 @@ definitions:
           $ref: '#/definitions/Collection'
         
   # Recipes
-  CollectionRecipe:
+  Recipe:
     type: object
     properties:
       id:
@@ -363,24 +332,24 @@ definitions:
       collectionID:
         type: integer
       recipeID:
-        type: string
+        type: integer
       name:
         type: string
 
-  CollectionRecipeInput:
+  RecipeInput:
     type: object
     properties:
       collectionID:
         type: integer
       recipeID:
-        type: string
+        type: integer
       name:
         type: string
   
-  CollectionRecipeList:
+  RecipeList:
     type: array
     items:
-        $ref: '#/definitions/CollectionRecipe'
+        $ref: '#/definitions/Recipe'
 
 # Errors
   ErrorModel:
