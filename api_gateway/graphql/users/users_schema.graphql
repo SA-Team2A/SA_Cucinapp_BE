@@ -13,39 +13,23 @@ type User {
   created_at: String!
   updated_at: String!
 }
-type LoginOutput {
-  user_id: Int
-}
 
-input UserInput {
-  username: String!
-  email: String!
-  password: String!
-}
-input UserInput2 {
+type UserInput {
   username: String
   email: String
   password: String
 }
 
-input LoginInput {
-  email: String!
-  password: String!
-}
-
-
-
 type Query {
   getUsers: [User!]!
-  getUserById(id: ID!): User!
-  addFollower(user_id: ID!, follower_id: ID!): User!
-  removeFollower(user_id: ID!, follower_id: ID!): User!
-  # searchRecipes(search: Search_recipe!): [Recipes]!
+  getUserById(id: ID!): User
+  getUserByEmail(email: String!): User
+  getUsersByUsernameLike(username: String!): [User!]!
 }
 
 type Mutation {
-  createUser(user: UserInput!): User!
-  updateUser(id: ID!, user: UserInput2!): User!
+  addFollower(user_id: ID!, follower_id: ID!): User!
+  removeFollower(user_id: ID!, follower_id: ID!): User!
+  updateUser(id: ID!, user: UserInput!): User!
   deleteUser(id: ID!): User!
-  login(loginInput: LoginInput!): LoginOutput!
 }

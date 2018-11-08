@@ -11,30 +11,25 @@ const resolvers = {
   getUserById: async ({ id }) => {
     return await GET(users_url, `/users/${id}`)
   },
+  getUserByEmail: async ({ email }) => {
+    return await GET(users_url, '/users/searchOne', { email })
+  },
+  getUsersByUsernameLike: async ({ username }) => {
+    return await GET(users_url, '/users/searchMany', { username })
+  },
+
+  // Mutations
   addFollower: async ({ user_id, follower_id }) => {
     return await GET(users_url, `/users/${user_id}/addfollower/${follower_id}`)
   },
   removeFollower: async ({ user_id, follower_id }) => {
     return await GET(users_url, `/users/${user_id}/removefollower/${follower_id}`)
   },
-
-  // Mutations
-  createUser: async ({ user }) => {
-    return await POST(users_url, `/users`, { user: user })
-  },
-  // searchRecipes: async ({ search }) => {
-  //   let res = await GET(recipes_url, '/recipes', search)
-  //   return res
-  // },
   updateUser: async ({ id, user }) => {
     return await PUT(users_url, `/users/${id}`, user)
   },
   deleteUser: async ({ id }) => {
     return await DELETE(users_url, `/users/${id}`)
-  },
-
-  login: async ({ loginInput }) => {
-    return await POST(users_url, `/login`, loginInput)
   }
 }
  module.exports = { schema, resolvers }

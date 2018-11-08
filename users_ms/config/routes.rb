@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "/users/searchOne" => "users#searchOne"
+  get "/users/searchMany" => "users#searchMany"
   resources :users
   post "login" => "users#login"
   get "/users/:user_id/addfollower/:follower_id" => "users#addFollower"

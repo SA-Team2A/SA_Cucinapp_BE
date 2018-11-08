@@ -2,17 +2,17 @@
 # Query, Mutation, Definicion de tipos e input
 
 type Query {
-  getComments: [Comment]
-  getCommentsById(_id: ID!): Comment
-  getCommentsByUserId(user_id: Int!): [Comment]
-  getCommentsByRecipeId(recipe_id: String!): [Comment]
-  getCommentsByRecipeIdAndUserId(user_id: Int!, recipe_id: String!): [Comment]
+  getComments: [Comment!]!
+  getCommentById(_id: ID!): Comment
+  getCommentsByUserId(user_id: Int!): [Comment!]!
+  getCommentsByRecipeId(recipe_id: String!): [Comment!]!
+  getCommentsByRecipeIdAndUserId(user_id: Int!, recipe_id: String!): [Comment!]!
 }
 
 type Mutation {
-  createComment(comment: CommentInput!): Comment
-  updateComment(_id: ID!, comment: String!): Comment
-  deleteComment(_id: ID!): Comment
+  createComment(comment: CommentInput!): Comment!
+  updateComment(_id: ID!, comment: String!): Comment!
+  deleteComment(_id: ID!): Comment!
 }
 
 type Comment {

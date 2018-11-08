@@ -1,43 +1,43 @@
 type Collection {
 	id: ID!
-	userID: Int!
+	user_id: Int!
 	name: String!
 }
 
-type Recipe {
+type CollectionRecipe {
 	id: ID!
-	collectionID: Int!
-	recipeID: Int!
+	collection_id: Int!
+	recipe_id: String!
   name: String!
 }
 
 input CollectionInput {
-	userID: Int!
+	user_id: Int!
 	name: String!
 }
 
-input RecipeInput {
+input CollectionRecipeInput {
 	collectionID: Int!
 	recipeID: Int!
 	name: String!
 }
 
 type Query {
-	getCollections: [Collection!]
-  getCollection(id: ID!): Collection!
+	getCollections: [Collection!]!
+  getCollectionById(id: ID!): Collection!
 
-  getRecipes: [Recipe!]
-  getRecipe(id: ID!): Recipe!
+  getCollectionRecipes: [CollectionRecipe!]!
+  getCollectionRecipeById(id: ID!): CollectionRecipe!
 }
 
 # Mutations
 type Mutation {
 	createCollection(input: CollectionInput!): Collection!
-  createRecipe(input: RecipeInput!): Recipe!
-  
+  addToCollection(input: CollectionRecipeInput!): CollectionRecipe!
+
 	updateCollection(id: ID!, input: CollectionInput!): Collection!
-  updateRecipe(id: ID!, input: RecipeInput!): Recipe!
-	
+  updateCollectionRecipe(id: ID!, input: CollectionRecipeInput!): CollectionRecipe!
+
 	deleteCollection(id: ID!): Collection!
-  deleteRecipe(id: ID!): Recipe!
+  removeFromCollection(id: ID!): CollectionRecipe!
 }

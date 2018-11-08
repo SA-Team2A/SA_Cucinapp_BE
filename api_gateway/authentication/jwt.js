@@ -9,7 +9,7 @@ module.exports = {
       }
       return resolve(token)
     })
-  }).then( token => token).catch( error => error ),
+  }).then( token => token ).catch( error => error ),
   verify: (token) => new Promise((resolve, reject) => {
     jwt.verify(token, secret_key, (error, decoded) => {
       if (error) {

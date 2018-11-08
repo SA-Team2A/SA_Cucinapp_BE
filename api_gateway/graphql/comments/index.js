@@ -9,7 +9,7 @@ const resolvers = {
     let res = await GET(comments_url, '/comments')
     return res.comments
   },
-  getCommentsById: async ({ _id }) => {
+  getCommentById: async ({ _id }) => {
     return await GET(comments_url, `comments/${_id}`)
   },
   getCommentsByUserId: async ({ user_id }) => {
