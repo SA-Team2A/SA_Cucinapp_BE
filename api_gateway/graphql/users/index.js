@@ -19,9 +19,6 @@ const resolvers = {
   },
 
   // Mutations
-  createUser: async ({ user }) => {
-    return await POST(users_url, `/users`, { user: user })
-  },
   addFollower: async ({ user_id, follower_id }) => {
     return await GET(users_url, `/users/${user_id}/addfollower/${follower_id}`)
   },
