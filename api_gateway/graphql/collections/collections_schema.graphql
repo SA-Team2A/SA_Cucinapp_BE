@@ -11,11 +11,6 @@ type CollectionRecipe {
   name: String!
 }
 
-input CollectionInput {
-	user_id: ID!
-	name: String!
-}
-
 input CollectionRecipeInput {
 	collection_id: ID!
 	recipe_id: ID!
@@ -27,8 +22,8 @@ type Query {
 	getMyCollections: [Collection!]!
   getCollectionById(id: ID!): Collection!
 
-	getCollectionsByUserId(user_id: Int!): [Collection!]!
-	getRecipeByName(user_id: Int!, name: String!): [CollectionRecipe!]!
+	getCollectionsByUserId(user_id: ID!): [Collection!]!
+	getRecipeByName(user_id: ID!, name: String!): [CollectionRecipe!]!
 
   getCollectionRecipes: [CollectionRecipe!]!
   getCollectionRecipeById(id: ID!): CollectionRecipe!
@@ -36,10 +31,10 @@ type Query {
 
 # Mutations
 type Mutation {
-	createCollection(input: CollectionInput!): Collection!
+	createCollection(name: String!): Collection!
   addToCollection(input: CollectionRecipeInput!): CollectionRecipe!
 
-	updateCollection(id: ID!, input: CollectionInput!): Collection!
+	updateCollection(id: ID!, name: String!): Collection!
   updateCollectionRecipe(id: ID!, input: CollectionRecipeInput!): CollectionRecipe!
 
 	deleteCollection(id: ID!): Collection!
