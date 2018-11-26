@@ -2,13 +2,17 @@ version: "3"
 services:
   web:
     build: .
-    command: bundle exec rails s -p 8083 -b '0.0.0.0'
+    command: bundle exec rails s -p 8083 -b 0.0.0.0
     ports:
       - "8083:8083"
     volumes:
     - .:/users_ms
     depends_on:
     - users_db
+    environment:
+      LDAP_HOST: 192.168.99.100
+      LDAP_PORT: 389
+      LDAP_ADMIN_PASSWORD: admin
 
   users_db:
     image: postgres
