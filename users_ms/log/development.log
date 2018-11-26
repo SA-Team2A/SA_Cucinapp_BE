@@ -1,0 +1,629 @@
+  [1m[35m (557.1ms)[0m  [1m[35mCREATE DATABASE "users_ms_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (3542.2ms)[0m  [1m[35mCREATE DATABASE "users_ms_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (38.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4087382212621784685)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateUsers (20181103011558)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (4.2ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[35m (1.3ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_username" ON "users"  ("username")[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20181103011558"]]
+  ↳ bin/rails:9
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreateFollowers (20181103012715)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE TABLE "followers" ("user_id" integer NOT NULL, "follower_id" integer NOT NULL)[0m
+  ↳ db/migrate/20181103012715_create_followers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20181103012715"]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-11-23 20:45:46.868429"], ["updated_at", "2018-11-23 20:45:46.868429"]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4087382212621784685)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started GET "/" for 192.168.99.1 at 2018-11-23 20:46:39 +0000
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb (50.1ms)
+Completed 200 OK in 222ms (Views: 220.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 192.168.99.1 at 2018-11-23 20:46:41 +0000
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.6) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.6) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.2.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/users" for 192.168.99.1 at 2018-11-23 20:46:51 +0000
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (1.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:7
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.21ms)
+Completed 200 OK in 2260ms (Views: 137.2ms | ActiveRecord: 7.9ms)
+
+
+  [1m[35m (1381.3ms)[0m  [1m[35mCREATE DATABASE "users_ms_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (1617.6ms)[0m  [1m[35mCREATE DATABASE "users_ms_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (122.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (18.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4087382212621784685)[0m
+  ↳ bin/rails:9
+  [1m[35m (2.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateUsers (20181103011558)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (11.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[35m (3.9ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_username" ON "users"  ("username")[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20181103011558"]]
+  ↳ bin/rails:9
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreateFollowers (20181103012715)
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (3.0ms)[0m  [1m[35mCREATE TABLE "followers" ("user_id" integer NOT NULL, "follower_id" integer NOT NULL)[0m
+  ↳ db/migrate/20181103012715_create_followers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (2.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20181103012715"]]
+  ↳ bin/rails:9
+  [1m[35m (3.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (2.8ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (3.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-11-26 20:57:02.975132"], ["updated_at", "2018-11-26 20:57:02.975132"]]
+  ↳ bin/rails:9
+  [1m[35m (1.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(4087382212621784685)[0m
+  ↳ bin/rails:9
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started GET "/" for 192.168.99.1 at 2018-11-26 20:59:19 +0000
+  [1m[35m (1.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb (76.9ms)
+Completed 200 OK in 352ms (Views: 343.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/favicon.ico" for 192.168.99.1 at 2018-11-26 20:59:24 +0000
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+actionpack (5.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:65:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.6) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.6) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.2.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started GET "/" for 192.168.99.1 at 2018-11-26 21:06:49 +0000
+  [1m[35m (3.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb (24.3ms)
+Completed 200 OK in 119ms (Views: 116.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users" for 192.168.99.1 at 2018-11-26 21:07:02 +0000
+Processing by UsersController#index as HTML
+  [1m[36mUser Load (8.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:7
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.32ms)
+Completed 200 OK in 738ms (Views: 202.3ms | ActiveRecord: 17.7ms)
+
+
+Started GET "/users" for 192.168.99.1 at 2018-11-26 21:08:08 +0000
+Processing by UsersController#index as */*
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/users_controller.rb:7
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (0.08ms)
+Completed 200 OK in 9ms (Views: 7.9ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 21:09:37 +0000
+  
+SyntaxError (/users_ms/app/controllers/ldap_controller.rb:64: syntax error, unexpected tIDENTIFIER, expecting '}'
+        unicodepwd: NET::LDAP::Password.generat...
+        ^~~~~~~~~~
+/users_ms/app/controllers/ldap_controller.rb:65: syntax error, unexpected '}', expecting keyword_end
+      })
+      ^):
+  
+app/controllers/ldap_controller.rb:64: syntax error, unexpected tIDENTIFIER, expecting '}'
+app/controllers/ldap_controller.rb:65: syntax error, unexpected '}', expecting keyword_end
+  [1m[35m (44.6ms)[0m  [1m[35mCREATE DATABASE "users_ms_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (1.9ms)[0m  [1m[35mCREATE DATABASE "users_ms_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+Started GET "/" for 192.168.99.1 at 2018-11-26 21:42:32 +0000
+  [1m[35m (17.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /usr/local/bundle/gems/railties-5.2.1/lib/rails/templates/rails/welcome/index.html.erb (19.3ms)
+Completed 200 OK in 94ms (Views: 90.7ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 21:42:47 +0000
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde95", "email"=>"darkwilde95@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde95", "email"=>"darkwilde95@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.9ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:60
+  [1m[36mUser Exists (48.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde95@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:60
+  [1m[36mUser Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde95"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:60
+  [1m[36mUser Create (29.4ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde95"], ["email", "darkwilde95@outlook.com"], ["password_digest", "$2a$10$dXh..la1seiHU/gKeO1cCuLnHByJ6Qsbskbb5ezfPLt6DHxvlNu3."], ["created_at", "2018-11-26 21:42:48.234129"], ["updated_at", "2018-11-26 21:42:48.234129"]]
+  ↳ app/controllers/ldap_controller.rb:60
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:60
+Completed 500 Internal Server Error in 615ms (ActiveRecord: 144.1ms)
+
+
+  
+Net::LDAP::Error (getaddrinfo: Name or service not known):
+  
+app/controllers/ldap_controller.rb:79:in `connect'
+app/controllers/ldap_controller.rb:61:in `create'
+Started POST "/create" for 192.168.99.1 at 2018-11-26 21:48:41 +0000
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde95", "email"=>"darkwilde96@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde95", "email"=>"darkwilde96@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde96@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (2.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde95"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (1.1ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 422 Unprocessable Entity in 384ms (Views: 43.3ms | ActiveRecord: 18.1ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 21:49:18 +0000
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde96", "email"=>"darkwilde96@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde96", "email"=>"darkwilde96@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde96@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde96"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde96"], ["email", "darkwilde96@outlook.com"], ["password_digest", "$2a$10$R9mIE2FjB9Ky5vWdB8BgZeihYpWImcnK4xE27n1bxOadDAzrdakc."], ["created_at", "2018-11-26 21:49:18.404296"], ["updated_at", "2018-11-26 21:49:18.404296"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.14ms)
+Completed 422 Unprocessable Entity in 128ms (Views: 1.4ms | ActiveRecord: 7.2ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 21:51:56 +0000
+  [1m[35m (3.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde97", "email"=>"darkwilde97@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde97", "email"=>"darkwilde97@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[36mUser Exists (1.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde97@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde97"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde97"], ["email", "darkwilde97@outlook.com"], ["password_digest", "$2a$10$xPna3B7SC6ejmunocuGs1uOObs6EvJwqU8VSbcuYf6QvL6yQ6jbSy"], ["created_at", "2018-11-26 21:51:58.277215"], ["updated_at", "2018-11-26 21:51:58.277215"]]
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:62
+Completed 500 Internal Server Error in 190ms (ActiveRecord: 15.4ms)
+
+
+  
+NameError (uninitialized constant LdapController::NET):
+  
+app/controllers/ldap_controller.rb:65:in `create'
+Started POST "/create" for 192.168.99.1 at 2018-11-26 21:56:38 +0000
+  [1m[35m (3.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde98", "email"=>"darkwilde98@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde98", "email"=>"darkwilde98@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[36mUser Exists (1.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde98@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde98"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde98"], ["email", "darkwilde98@outlook.com"], ["password_digest", "$2a$10$8hSNTOh37DRqnnJaWP/.BePUl9UK6i5Zuv8QQGmx/ng9EIArjVe3K"], ["created_at", "2018-11-26 21:56:40.109240"], ["updated_at", "2018-11-26 21:56:40.109240"]]
+  ↳ app/controllers/ldap_controller.rb:62
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:62
+Completed 500 Internal Server Error in 204ms (ActiveRecord: 15.9ms)
+
+
+  
+NoMethodError (undefined method `add' for false:FalseClass):
+  
+app/controllers/ldap_controller.rb:63:in `create'
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:04:36 +0000
+  [1m[35m (5.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde99", "email"=>"darkwilde99@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde99", "email"=>"darkwilde99@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde99@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.0ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde99"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (1.3ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde99"], ["email", "darkwilde99@outlook.com"], ["password_digest", "$2a$10$I4rIcpQhBJ4TtgZZwel5guJva4BXOYZ/8qfboj.lE7rjVGatJlPB."], ["created_at", "2018-11-26 22:04:37.657112"], ["updated_at", "2018-11-26 22:04:37.657112"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (37.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.52ms)
+Completed 422 Unprocessable Entity in 303ms (Views: 63.9ms | ActiveRecord: 50.0ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:07:01 +0000
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde00", "email"=>"darkwilde00@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde00", "email"=>"darkwilde00@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde00@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde00"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (1.2ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde00"], ["email", "darkwilde00@outlook.com"], ["password_digest", "$2a$10$rE/5mQ5XUQK2meCSuxZhaOvzroR9JGhageF.upFn3YDafVwDE6/bG"], ["created_at", "2018-11-26 22:07:03.941870"], ["updated_at", "2018-11-26 22:07:03.941870"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (1.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.11ms)
+Completed 422 Unprocessable Entity in 221ms (Views: 32.9ms | ActiveRecord: 18.5ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:09:46 +0000
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde01", "email"=>"darkwilde01@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde01", "email"=>"darkwilde01@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde01@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde01"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde01"], ["email", "darkwilde01@outlook.com"], ["password_digest", "$2a$10$octkXao0iVAvw4pnA2X36O4pRo7URN.v8/tBEF0UzWqwNINT.azZm"], ["created_at", "2018-11-26 22:09:48.735506"], ["updated_at", "2018-11-26 22:09:48.735506"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers]   [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followers" ON "users"."id" = "followers"."follower_id" WHERE "followers"."user_id" = $1[0m  [["user_id", 7]]
+[active_model_serializers]   ↳ app/controllers/ldap_controller.rb:66
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (200.19ms)
+Completed 201 Created in 821ms (Views: 601.0ms | ActiveRecord: 14.8ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:14:34 +0000
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde02", "email"=>"darkwilde02@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde02", "email"=>"darkwilde02@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde02@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde02"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde02"], ["email", "darkwilde02@outlook.com"], ["password_digest", "$2a$10$MXBr3sap0usQ4Wr.aCFgP.xUMCAwIDlSDcalym8TIv/G/IgVMLDO."], ["created_at", "2018-11-26 22:14:35.328434"], ["updated_at", "2018-11-26 22:14:35.328434"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers]   [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followers" ON "users"."id" = "followers"."follower_id" WHERE "followers"."user_id" = $1[0m  [["user_id", 8]]
+[active_model_serializers]   ↳ app/controllers/ldap_controller.rb:67
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (58.8ms)
+Completed 201 Created in 290ms (Views: 133.3ms | ActiveRecord: 16.6ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:18:19 +0000
+  [1m[35m (2.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde03", "email"=>"darkwilde03@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde03", "email"=>"darkwilde03@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (2.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde03@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (0.9ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde03"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (0.8ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde03"], ["email", "darkwilde03@outlook.com"], ["password_digest", "$2a$10$9v41IiBxc1rsiipPI/LIHe6oXjLdR4EVpKJK73qupJ1tTAJ0N6SVG"], ["created_at", "2018-11-26 22:18:21.390306"], ["updated_at", "2018-11-26 22:18:21.390306"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (30.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers]   [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followers" ON "users"."id" = "followers"."follower_id" WHERE "followers"."user_id" = $1[0m  [["user_id", 9]]
+[active_model_serializers]   ↳ app/controllers/ldap_controller.rb:67
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (46.0ms)
+Completed 201 Created in 373ms (Views: 130.2ms | ActiveRecord: 47.8ms)
+
+
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (71.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (138.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "users_ms_development"[0m
+  ↳ bin/rails:9
+  [1m[35m (116.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "users_ms_test"[0m
+  ↳ bin/rails:9
+  [1m[35m (1424.1ms)[0m  [1m[35mCREATE DATABASE "users_ms_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (399.0ms)[0m  [1m[35mCREATE DATABASE "users_ms_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (66.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ bin/rails:9
+  [1m[35m (7.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4087382212621784685)[0m
+  ↳ bin/rails:9
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Migrating to CreateUsers (20181103011558)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (7.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying NOT NULL, "email" character varying NOT NULL, "password_digest" character varying NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_username" ON "users"  ("username")[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[35m (3.4ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  ↳ db/migrate/20181103011558_create_users.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20181103011558"]]
+  ↳ bin/rails:9
+  [1m[35m (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+Migrating to CreateFollowers (20181103012715)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE TABLE "followers" ("user_id" integer NOT NULL, "follower_id" integer NOT NULL)[0m
+  ↳ db/migrate/20181103012715_create_followers.rb:3
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20181103012715"]]
+  ↳ bin/rails:9
+  [1m[35m (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Load (1.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2018-11-26 22:20:24.363053"], ["updated_at", "2018-11-26 22:20:24.363053"]]
+  ↳ bin/rails:9
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT pg_advisory_unlock(4087382212621784685)[0m
+  ↳ bin/rails:9
+  [1m[35m (0.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:20:49 +0000
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde03", "email"=>"darkwilde03@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde03", "email"=>"darkwilde03@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde03@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (0.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde03"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (0.9ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde03"], ["email", "darkwilde03@outlook.com"], ["password_digest", "$2a$10$VzoRZH3jXof/WFjxR98IveqQCIURSZrlmsq.jvQ6jr4pLm2Vx2jUy"], ["created_at", "2018-11-26 22:20:50.883087"], ["updated_at", "2018-11-26 22:20:50.883087"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (0.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers]   [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followers" ON "users"."id" = "followers"."follower_id" WHERE "followers"."user_id" = $1[0m  [["user_id", 1]]
+[active_model_serializers]   ↳ app/controllers/ldap_controller.rb:67
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (68.84ms)
+Completed 201 Created in 340ms (Views: 138.2ms | ActiveRecord: 20.0ms)
+
+
+Started POST "/create" for 192.168.99.1 at 2018-11-26 22:37:44 +0000
+  [1m[35m (3.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#create as */*
+  Parameters: {"user"=>{"username"=>"Darkwilde04", "email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "ldap"=>{"user"=>{"username"=>"Darkwilde04", "email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}}}
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.6ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER($1) LIMIT $2[0m  [["email", "darkwilde04@outlook.com"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Exists (1.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."username") = LOWER($1) LIMIT $2[0m  [["username", "Darkwilde04"], ["LIMIT", 1]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[36mUser Create (1.6ms)[0m  [1m[32mINSERT INTO "users" ("username", "email", "password_digest", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["username", "Darkwilde04"], ["email", "darkwilde04@outlook.com"], ["password_digest", "$2a$10$jaZB0e3PTohvtt.0/kYtF.WVu4epm2ihIMwGNARMyxB8z1uEtg57W"], ["created_at", "2018-11-26 22:37:46.675218"], ["updated_at", "2018-11-26 22:37:46.675218"]]
+  ↳ app/controllers/ldap_controller.rb:61
+  [1m[35m (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/ldap_controller.rb:61
+[active_model_serializers]   [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT "users".* FROM "users" INNER JOIN "followers" ON "users"."id" = "followers"."follower_id" WHERE "followers"."user_id" = $1[0m  [["user_id", 2]]
+[active_model_serializers]   ↳ app/controllers/ldap_controller.rb:68
+[active_model_serializers] Rendered UserSerializer with ActiveModelSerializers::Adapter::Attributes (108.51ms)
+Completed 201 Created in 413ms (Views: 212.2ms | ActiveRecord: 18.8ms)
+
+
+Started POST "/login" for 192.168.99.1 at 2018-11-26 22:47:57 +0000
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ /usr/local/bundle/gems/activerecord-5.2.1/lib/active_record/log_subscriber.rb:98
+Processing by LdapController#login as */*
+  Parameters: {"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]", "ldap"=>{"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1[0m  [["email", "darkwilde04@outlook.com"]]
+  ↳ app/models/user.rb:42
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.14ms)
+Completed 200 OK in 212ms (Views: 46.8ms | ActiveRecord: 9.8ms)
+
+
+Started POST "/login" for 192.168.99.1 at 2018-11-26 22:48:10 +0000
+Processing by LdapController#login as */*
+  Parameters: {"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]", "ldap"=>{"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]"}}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.14ms)
+Completed 404 Not Found in 4ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 192.168.99.1 at 2018-11-26 22:48:27 +0000
+Processing by LdapController#login as */*
+  Parameters: {"email"=>"darkwilde03@outlook.com", "password"=>"[FILTERED]", "ldap"=>{"email"=>"darkwilde03@outlook.com", "password"=>"[FILTERED]"}}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.13ms)
+Completed 404 Not Found in 7ms (Views: 1.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/login" for 192.168.99.1 at 2018-11-26 22:48:55 +0000
+Processing by LdapController#login as */*
+  Parameters: {"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]", "ldap"=>{"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (1.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."email" = $1[0m  [["email", "darkwilde04@outlook.com"]]
+  ↳ app/models/user.rb:42
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.12ms)
+Completed 200 OK in 91ms (Views: 1.9ms | ActiveRecord: 1.7ms)
+
+
+Started POST "/login" for 192.168.99.1 at 2018-11-26 22:49:11 +0000
+Error occurred while parsing request parameters.
+Contents:
+
+{
+	"email": "darkwilde04@outlook.com",
+	"password": "gatico12
+	"
+}
+  
+ActionDispatch::Http::Parameters::ParseError (765: unexpected token at '{
+	"email": "darkwilde04@outlook.com",
+	"password": "gatico12
+	"
+}'):
+  
+actionpack (5.2.1) lib/action_dispatch/http/parameters.rb:117:in `rescue in parse_formatted_parameters'
+actionpack (5.2.1) lib/action_dispatch/http/parameters.rb:111:in `parse_formatted_parameters'
+actionpack (5.2.1) lib/action_dispatch/http/request.rb:381:in `block in POST'
+rack (2.0.6) lib/rack/request.rb:59:in `fetch'
+rack (2.0.6) lib/rack/request.rb:59:in `fetch_header'
+actionpack (5.2.1) lib/action_dispatch/http/request.rb:380:in `POST'
+actionpack (5.2.1) lib/action_dispatch/http/parameters.rb:55:in `parameters'
+actionpack (5.2.1) lib/action_controller/metal/params_wrapper.rb:290:in `_wrapper_enabled?'
+actionpack (5.2.1) lib/action_controller/metal/params_wrapper.rb:244:in `process_action'
+activerecord (5.2.1) lib/active_record/railties/controller_runtime.rb:24:in `process_action'
+actionpack (5.2.1) lib/abstract_controller/base.rb:134:in `process'
+actionpack (5.2.1) lib/action_controller/metal.rb:191:in `dispatch'
+actionpack (5.2.1) lib/action_controller/metal.rb:252:in `dispatch'
+actionpack (5.2.1) lib/action_dispatch/routing/route_set.rb:52:in `dispatch'
+actionpack (5.2.1) lib/action_dispatch/routing/route_set.rb:34:in `serve'
+actionpack (5.2.1) lib/action_dispatch/journey/router.rb:52:in `block in serve'
+actionpack (5.2.1) lib/action_dispatch/journey/router.rb:35:in `each'
+actionpack (5.2.1) lib/action_dispatch/journey/router.rb:35:in `serve'
+actionpack (5.2.1) lib/action_dispatch/routing/route_set.rb:840:in `call'
+rack (2.0.6) lib/rack/etag.rb:25:in `call'
+rack (2.0.6) lib/rack/conditional_get.rb:38:in `call'
+rack (2.0.6) lib/rack/head.rb:12:in `call'
+activerecord (5.2.1) lib/active_record/migration.rb:559:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:28:in `block in call'
+activesupport (5.2.1) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (5.2.1) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/debug_exceptions.rb:61:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (5.2.1) lib/rails/rack/logger.rb:38:in `call_app'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `block in tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:28:in `tagged'
+activesupport (5.2.1) lib/active_support/tagged_logging.rb:71:in `tagged'
+railties (5.2.1) lib/rails/rack/logger.rb:26:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/request_id.rb:27:in `call'
+rack (2.0.6) lib/rack/runtime.rb:22:in `call'
+activesupport (5.2.1) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (5.2.1) lib/action_dispatch/middleware/static.rb:127:in `call'
+rack (2.0.6) lib/rack/sendfile.rb:111:in `call'
+rack-cors (1.0.2) lib/rack/cors.rb:97:in `call'
+railties (5.2.1) lib/rails/engine.rb:524:in `call'
+puma (3.12.0) lib/puma/configuration.rb:225:in `call'
+puma (3.12.0) lib/puma/server.rb:658:in `handle_request'
+puma (3.12.0) lib/puma/server.rb:472:in `process_client'
+puma (3.12.0) lib/puma/server.rb:332:in `block in run'
+puma (3.12.0) lib/puma/thread_pool.rb:133:in `block in spawn_thread'
+Started POST "/login" for 192.168.99.1 at 2018-11-26 22:49:25 +0000
+Processing by LdapController#login as */*
+  Parameters: {"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]", "ldap"=>{"email"=>"darkwilde04@outlook.com", "password"=>"[FILTERED]"}}
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.16ms)
+Completed 404 Not Found in 9ms (Views: 3.0ms | ActiveRecord: 0.0ms)
+
+

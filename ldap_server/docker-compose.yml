@@ -1,0 +1,27 @@
+version: '3'
+services:
+  ldap_server:
+    image: osixia/openldap
+    environment:
+      COMPOSE_HTTP_TIMEOUT: 200
+      LDAP_ORGANISATION: "Cucinapp"
+      LDAP_DOMAIN: "cucinapp.com"
+      LDAP_BACKEND: "hdb"
+    tty: true
+    stdin_open: true
+    volumes:
+      - /var/lib/ldap
+      - /etc/ldap/slapd.d
+    ports:
+      - "389:389"
+      - "689:689"
+  phpldapadmin:
+    image: osixia/phpldapadmin
+    container_name: phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "ldap_server"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "8086:80"
+    links:
+      - ldap_server

@@ -20,25 +20,6 @@ class UsersController < ApplicationController
     render json: @user, status: :ok
   end
 
-  # POST /users
-  def create
-    if params[:user].empty?
-      error = {
-        info: "User object not found or the value is empty",
-        status: 400,
-        message: "BAD REQUEST"
-      }
-      return render json: error, status: :bad_request
-    end
-
-    user = User.new(user_params)
-    if user.save
-      render json: user, status: :created, location: user
-    else
-      render json: { message: "UNPROCESSABLE ENTITY", status: 422 } , status: :unprocessable_entity
-    end
-  end
-
   # PATCH/PUT /users/1
   def update
     if params[:user].empty?
@@ -76,47 +57,6 @@ class UsersController < ApplicationController
     end
     @user.destroy
     render json: @user, status: :ok
-  end
-
-  def login
-    if !params[:email]
-      error = {
-        info: "User email not found or the value is empty",
-        status: 400,
-        message: "BAD REQUEST"
-      }
-      return render json: error, status: :bad_request
-    end
-    if !params[:password]
-      error = {
-        info: "User password not found or the value is empty",
-        status: 400,
-        message: "BAD REQUEST"
-      }
-      return render json: error, status: :bad_request
-    end
-
-    user_id = nil
-    @user = User.getByEmail(params[:email])
-    puts @user
-    if !@user
-      error = {
-        info: "Email doesn't match with any user",
-        status: 404,
-        message: "NOT FOUND"
-      }
-      return render json: error, status: :not_found
-    end
-
-    if @user.authenticate(params[:password])
-      return render json: { user_id: @user.id }, status: :ok
-    end
-    error = {
-      info: "Password doesn't match",
-      status: 406,
-      message: "NOT ACCEPTABLE"
-    }
-    render json: error, status: :not_acceptable
   end
 
   def addFollower
@@ -200,10 +140,5 @@ class UsersController < ApplicationController
       #   return render json: { message: "User object not found or the value is empty", code: 400 }, status: :bad_request
       # end
       @user = User.find_by_id(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def user_params
-      params.require(:user).permit(:username, :email, :password, :password_confirmation)
     end
 end
