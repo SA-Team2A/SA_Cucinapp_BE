@@ -39,10 +39,10 @@ namespace CollectionMS.Controllers
 			{
 				return BadRequest(ModelState);
 			}
-			var collection = await db.Collections.FindAsync(recipe.CollectionID);
+			var collection = await db.Collections.FindAsync(recipe.Collection_id);
 			if (collection == null)
 			{
-				ModelState.AddModelError("Collection ID", $"Collection {recipe.CollectionID} does not exist");
+				ModelState.AddModelError("Collection ID", $"Collection {recipe.Collection_id} does not exist");
 				return BadRequest(ModelState);
 			}
 
@@ -60,10 +60,10 @@ namespace CollectionMS.Controllers
 				return BadRequest(ModelState);
 			}
 			
-			var collection = await db.Collections.FindAsync(recipe.CollectionID);
+			var collection = await db.Collections.FindAsync(recipe.Collection_id);
 			if (collection == null)
 			{
-				ModelState.AddModelError("Collection ID", $"Collection {recipe.CollectionID} does not exist");
+				ModelState.AddModelError("Collection ID", $"Collection {recipe.Collection_id} does not exist");
 				return BadRequest(ModelState);
 			}
 			
@@ -75,8 +75,8 @@ namespace CollectionMS.Controllers
 			else
 			{
 				recipeOld.Name = recipe.Name;
-				recipeOld.CollectionID = recipe.CollectionID;
-				recipeOld.RecipeID = recipe.RecipeID;
+				recipeOld.Collection_id = recipe.Collection_id;
+				recipeOld.Recipe_id = recipe.Recipe_id;
 				db.Update(recipeOld);
 				db.SaveChanges();
 				recipe.ID = recipeOld.ID;

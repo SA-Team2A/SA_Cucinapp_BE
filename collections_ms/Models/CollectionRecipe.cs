@@ -9,10 +9,11 @@ namespace CollectionMS.Models
 		public int ID { get; set; }
 
 		[Range(1, int.MaxValue)]
-		public int CollectionID { get; set; }
+		public int Collection_id { get; set; }
 		
-		[Range(1, int.MaxValue)]
-		public int RecipeID { get; set; }
+		[Required(ErrorMessage = "Please enter a Recipe_id.")]
+		[StringLength(50)]
+		public string Recipe_id { get; set; }
 
 		[Required(ErrorMessage = "Please enter a Name for the Recipe.")]
 		[StringLength(50)]

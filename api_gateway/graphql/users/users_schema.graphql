@@ -2,19 +2,15 @@ type SimpleUser {
   id: ID!
   username: String!
   email: String!
-  created_at: String!
-  updated_at: String!
 }
 type User {
   id: ID!
   username: String!
   email: String!
   followers: [SimpleUser!]!
-  created_at: String!
-  updated_at: String!
 }
 
-type UserInput {
+input UserInput {
   username: String
   email: String
   password: String
@@ -22,6 +18,7 @@ type UserInput {
 
 type Query {
   getUsers: [User!]!
+  getMyUser: User!
   getUserById(id: ID!): User
   getUserByEmail(email: String!): User
   getUsersByUsernameLike(username: String!): [User!]!

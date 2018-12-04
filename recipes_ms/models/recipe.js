@@ -15,18 +15,17 @@ const recipe_schema = new mongo.Schema({
   },
   portions:{
     type: Number,
-    min: 1
+    min: 1,
+    required: 'Portions is required'
   },
   preparation_time: {
     type: Number,
-    min: 0
-  },
-  cooking_time: {
-    type: Number,
-    min: 0
+    min: 0,
+    default: 0
   },
   photos: {
-    type: [String]
+    type: [String],
+    default: []
   },
   ingredients: {
     type: [String],

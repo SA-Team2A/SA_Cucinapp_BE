@@ -15,4 +15,4 @@ EXPOSE 8085
 ENV MONGO_URI mongodb://mongo:27019/comments
 
 # Run app.py when the container launches
-CMD ["python3", "run.py"]
+#CMD ["python3", "run.py"]

@@ -10,14 +10,26 @@ const resolvers = {
 	getCollections: async () => {
 		return await GET(collections_url, "/collection/")
 	},
-	getCollection: async ({ id }) => {
+	getMyCollections: async (args, context, info) => {
+		let user_id = context.user.id
+		return await GET(collections_url, `/collection/user/${user_id}`)
+	},
+	getCollectionById: async ({ id }) => {
 		return await GET(collections_url, `/collection/${id}`)
 	},
-	createCollection: async ({ input }) => {
-		return await POST(collections_url, "/collection/", input)
+	getCollectionsByUserId: async ({ user_id }) => {
+		return await GET(collections_url, `/collection/user/${user_id}`)
 	},
-	updateCollection: async ({ id, input }) => {
-		return await PUT(collections_url, `/collection/${id}`, input)
+	getRecipeByName: async ({ user_id, name }) => {
+		return await GET(collections_url, `/collection/user/${user_id}/${name}`)
+	},
+	createCollection: async ({ name }, context, info) => {
+		let user_id = context.user.id
+		return await POST(collections_url, "/collection/", { name, user_id })
+	},
+	updateCollection: async ({ id, name }) => {
+		let user_id = context.user.id
+		return await PUT(collections_url, `/collection/${id}`, { name, user_id })
 	},
 	deleteCollection: async ({ id }) => {
 		return await DELETE(collections_url, `/collection/${id}`)

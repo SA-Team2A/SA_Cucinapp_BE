@@ -7,6 +7,7 @@ parser = reqparse.RequestParser(bundle_errors=True)
 parser.add_argument('user_id', type=int, required=True)
 parser.add_argument('recipe_id', required=True)
 parser.add_argument('comment', required=True)
+parser.add_argument('created_date', required=True)
 
 putParser = reqparse.RequestParser()
 putParser.add_argument('comment', required=True)
@@ -37,7 +38,7 @@ class CommentsController(Resource):
                                  "user_id":  i.user_id,
                                  "recipe_id": i.recipe_id,
                                  "comment": i.comment,
-                                 "created_date": i.created_date.strftime("%a %b %d %H:%M:%S %Z %Y")})
+                                 "created_date": i.created_date })
 
         res =  jsonify({'comments': response})
         return make_response(res, 200)
@@ -46,13 +47,14 @@ class CommentsController(Resource):
         args = parser.parse_args()
         comment = Comment(user_id = args['user_id'],
                           recipe_id = args['recipe_id'],
-                          comment = args['comment'])
+                          comment = args['comment'],
+                          created_date = args['created_date'])
         comment.save()
         res = jsonify({"_id": str(comment.mongo_id),
                          "user_id":  comment.user_id,
                          "recipe_id": comment.recipe_id,
                          "comment": comment.comment,
-                         "created_date": comment.created_date.strftime("%a %b %d %H:%M:%S %Z %Y")})
+                         "created_date": comment.created_date })
         return make_response(res, 201)
 
 class CommentController(Resource):
@@ -63,7 +65,7 @@ class CommentController(Resource):
                              "user_id":  comment.user_id,
                              "recipe_id": comment.recipe_id,
                              "comment": comment.comment,
-                             "created_date": comment.created_date.strftime("%a %b %d %H:%M:%S %Z %Y")})
+                             "created_date": comment.created_date })
             return make_response(res, 200)
         abort(404)
 
@@ -78,7 +80,7 @@ class CommentController(Resource):
                              "user_id":  comment.user_id,
                              "recipe_id": comment.recipe_id,
                              "comment": comment.comment,
-                             "created_date": comment.created_date.strftime("%a %b %d %H:%M:%S %Z %Y")})
+                             "created_date": comment.created_date })
             return make_response(res, 200)
         abort(404)
 
@@ -90,6 +92,6 @@ class CommentController(Resource):
                              "user_id":  comment.user_id,
                              "recipe_id": comment.recipe_id,
                              "comment": comment.comment,
-                             "created_date": comment.created_date.strftime("%a %b %d %H:%M:%S %Z %Y")})
+                             "created_date": comment.created_date })
             return make_response(res, 200)
         abort(404)

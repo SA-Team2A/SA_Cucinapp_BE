@@ -8,6 +8,9 @@ const resolvers = {
   getUsers: async () => {
     return await GET(users_url, '/users')
   },
+  getMyUser: async (args, context, info) => {
+    return context.user
+  },
   getUserById: async ({ id }) => {
     return await GET(users_url, `/users/${id}`)
   },

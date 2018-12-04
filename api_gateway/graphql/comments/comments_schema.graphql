@@ -4,9 +4,9 @@
 type Query {
   getComments: [Comment!]!
   getCommentById(_id: ID!): Comment
-  getCommentsByUserId(user_id: Int!): [Comment!]!
-  getCommentsByRecipeId(recipe_id: String!): [Comment!]!
-  getCommentsByRecipeIdAndUserId(user_id: Int!, recipe_id: String!): [Comment!]!
+  getCommentsByUserId(user_id: ID!): [Comment!]!
+  getCommentsByRecipeId(recipe_id: ID!): [Comment!]!
+  getCommentsByRecipeIdAndUserId(user_id: ID!, recipe_id: ID!): [Comment!]!
 }
 
 type Mutation {
@@ -17,13 +17,15 @@ type Mutation {
 
 type Comment {
   _id: ID!
-  user_id: Int!
-  recipe_id: String!
+  user_id: ID!
+  recipe_id: ID!
   comment: String!
+  created_date: String!
 }
 
 input CommentInput {
-  user_id: Int!
-  recipe_id: String!
+  user_id: ID!
+  recipe_id: ID!
   comment: String!
+  created_date: String!
 }
