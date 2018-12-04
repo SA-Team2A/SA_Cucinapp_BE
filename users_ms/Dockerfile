@@ -1,12 +1,10 @@
 FROM ruby:2.5.3
 
-RUN mkdir /users_ms
+WORKDIR /usr/src/app
 
-WORKDIR /users_ms
+COPY Gemfile ./Gemfile
+COPY Gemfile.lock ./Gemfile.lock
 
-COPY Gemfile /users_ms/Gemfile
-COPY Gemfile.lock /users_ms/Gemfile.lock
+COPY . .
 
 RUN bundle install
-
-COPY . /users_ms
