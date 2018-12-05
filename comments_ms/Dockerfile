@@ -12,7 +12,6 @@ RUN pip3 install --trusted-host pypi.python.org -r requirements.txt
 
 # Make port 80 available to the world outside this container
 EXPOSE 8085
-ENV MONGO_URI mongodb://mongo:27019/comments
 
 # Run app.py when the container launches
 #CMD ["python3", "run.py"]

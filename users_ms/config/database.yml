@@ -1,7 +1,7 @@
 default: &default
-  adapter: postgresql
-  # adapter: sqlite3
   encoding: unicode
+  # adapter: sqlite3
+  adapter: postgresql
   username: postgres
   password: password
   host: users_db

@@ -16,7 +16,7 @@ services:
       - recipes_ms
       - comments_ms
       # - collections_ms
-    command: bash -c "sleep 60 && node app.js"
+    command: bash -c "sleep 40 && node app.js"
     environment:
       RECIPES_URL: 192.168.99.100
       RECIPES_PORT: 8081
@@ -82,7 +82,7 @@ services:
       - "8085:8085"
     depends_on:
       - comments_db
-    command: bash -c "sleep 60 && python3 run.py"
+    command: bash -c "sleep 40 && python3 run.py"
     environment:
       MONGO_URI: mongodb://comments_db:27019/comments
 
@@ -94,7 +94,7 @@ services:
 
   users_ms:
     build: ./users_ms
-    command: bash -c "sleep 60 && rails db:create && rails db:migrate && rails s -p 8083 -b 0.0.0.0"
+    command: bash -c "sleep 40 && rails db:create && rails db:migrate && rails s -p 8083 -b 0.0.0.0"
     ports:
       - "8083:8083"
     depends_on:

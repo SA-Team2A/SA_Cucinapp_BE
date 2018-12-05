@@ -2,6 +2,11 @@ require 'net/ldap'
 
 class LdapController < ApplicationController
 
+  def initialize
+    @ou_users_created = false
+    super
+  end
+
   def login
     if !params[:email]
       error = {
@@ -37,7 +42,7 @@ class LdapController < ApplicationController
       if user.authenticate(params[:password])
         return render json: { user_id: user.id }, status: :ok
       end
-      
+
       error = {
         info: "Password doesn't match",
         status: 406,
@@ -56,6 +61,7 @@ class LdapController < ApplicationController
   end
 
   def create
+
     if params[:user].empty?
       error = {
         info: "User object not found or the value is empty",
@@ -68,16 +74,33 @@ class LdapController < ApplicationController
     user = User.new(user_params)
     ldap = connect_admin
 
+    if ldap != false
+      if @ou_users_created == false
+        ou = ldap.search(
+          base: 'dc=cucinapp,dc=com',
+          filter: Net::LDAP::Filter.eq("ou", "users"),
+          attributes: ['ou'],
+          return_result: true
+        )
+        if ou.size <= 0
+          ldap.add(dn: "ou=users,dc=cucinapp,dc=com", attributes: {
+            ou: 'users',
+            objectClass: ['top', 'organizationalUnit']
+          })
+        end
+        @ou_users_created = true
+      end
+    end
+
     if user.save and ldap != false
       ldap.add(dn: "uid=#{user.email},ou=users,dc=cucinapp,dc=com", attributes: {
         uid: user.email,
         objectClass: ['top', 'simpleSecurityObject', 'account'],
         userPassword: Net::LDAP::Password.generate(:md5, params[:user][:password])
       })
-      puts "\n\n\n#{ldap.get_operation_result}\n\n\n"
       render json: user, status: :created, location: user
     else
-      render json: { message: "UNPROCESSABLE ENTITY", status: 422 } , status: :unprocessable_entity
+      render json: { message: "UNPROCESSABLE ENTITY", status: 422 }, status: :unprocessable_entity
     end
   end
 
@@ -97,7 +120,6 @@ class LdapController < ApplicationController
     ldap.port = ENV['LDAP_PORT']
     ldap.auth "#{dn},dc=cucinapp,dc=com", password
     if ldap.bind
-      puts "\n\n\n#{ldap.get_operation_result}\n\n\n"
       ldap
     else
       false

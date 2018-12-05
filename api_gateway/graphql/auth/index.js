@@ -22,7 +22,7 @@ const resolvers = {
     return null
   },
   createUser: async ({ input }) => {
-    let res = await POST(users_url, '/users', { user: input })
+    let res = await POST(users_url, '/create', { user: input })
     if (res.response) {
       return res
     }

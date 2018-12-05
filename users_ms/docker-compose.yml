@@ -1,14 +1,13 @@
 version: "3"
 services:
-  web:
+  users_ms:
     build: .
-    command: bundle exec rails s -p 8083 -b 0.0.0.0
+    command: bash -c "sleep 40 && rails db:create && rails db:migrate && rails s -p 8083 -b 0.0.0.0"
     ports:
       - "8083:8083"
-    volumes:
-    - .:/users_ms
     depends_on:
-    - users_db
+      - users_db
+      - ldap_server
     environment:
       LDAP_HOST: 192.168.99.100
       LDAP_PORT: 389
@@ -20,3 +19,30 @@ services:
     - "5432:5432"
     environment:
      POSTGRES_PASSWORD: password
+
+  ldap_server:
+    image: osixia/openldap
+    environment:
+      COMPOSE_HTTP_TIMEOUT: 200
+      LDAP_ORGANISATION: "Cucinapp"
+      LDAP_DOMAIN: "cucinapp.com"
+      LDAP_BACKEND: "hdb"
+    tty: true
+    stdin_open: true
+    volumes:
+      - /var/lib/ldap
+      - /etc/ldap/slapd.d
+    ports:
+      - "389:389"
+      - "689:689"
+
+  phpldapadmin:
+    image: osixia/phpldapadmin
+    container_name: phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "ldap_server"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - "8086:80"
+    links:
+      - ldap_server
