@@ -15,7 +15,7 @@ services:
       - users_ms
       - recipes_ms
       - comments_ms
-      # - collections_ms
+      - collections_ms
     command: bash -c "sleep 40 && node app.js"
     environment:
       RECIPES_URL: 192.168.99.100
@@ -71,11 +71,51 @@ services:
     image: mongo
     ports:
       - "27017:27017"
-  # #
-  # # collections_ms:
-  # #
-  # # collections_db:
-  #
+
+  collections_ms:
+    image: collectionsapp:${WEBAPP_VERSION}
+    build:
+      context: ./collections_ms
+      dockerfile: App.dockerfile
+      args:
+        WEBAPP_VERSION: ${WEBAPP_VERSION}
+        URL_PORT: ${URL_PORT}
+    ports:
+      - "${URL_PORT}:${URL_PORT}"
+    volumes:
+      - appbuild:/app
+    links:
+      - collections_db
+    environment:
+      MYSQL_SERVER_NAME: ${MYSQL_SERVER_NAME}
+    env_file:
+      - ./collections_ms/Docker/secrets.env
+    depends_on:
+      - collections_ms_builder
+      - collections_db
+
+  collections_ms_builder:
+    image: collectionsapp:${BUILDER_VERSION}.${BUILD_CONFIG}
+    build:
+      context: ./collections_ms
+      dockerfile: Build.dockerfile
+      args:
+        BUILDER_VERSION: ${BUILDER_VERSION}
+        BUILD_CONFIG: ${BUILD_CONFIG}
+        BUILD_LOCATION: ${BUILD_LOCATION}
+    volumes:
+      - appbuild:${BUILD_LOCATION}
+
+  collections_db:
+    image: mysql/mysql-server:5.7
+    restart: always
+    volumes:
+      - dbvol:/var/lib/mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: !!str yes
+    env_file:
+      - ./collections_ms/Docker/secrets.env
+
   comments_ms:
     build: ./comments_ms
     ports:
@@ -111,3 +151,7 @@ services:
       - "5432:5432"
     environment:
      POSTGRES_PASSWORD: password
+
+volumes:
+  dbvol:
+  appbuild:
